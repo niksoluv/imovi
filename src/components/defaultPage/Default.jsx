@@ -31,11 +31,13 @@ const DefaultPage = () => {
 
 			{userData?.id ?
 				<>you logged in as {userData.username}
+					<br />
 					<Button as={Row} onClick={() => logout(dispatch)} variant="secondary"
 						className="mx-2">logout</Button>
 				</>
 				:
-				<>
+				<>you're not logged in
+					<br />
 					<NavLink as={Col} to={{ pathname: '/login' }}>
 						<Button as={Col} variant="secondary" className="mx-2">login</Button>
 					</NavLink>
