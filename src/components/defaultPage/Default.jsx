@@ -29,14 +29,17 @@ const DefaultPage = () => {
 		<div>
 			<h3>default page</h3>
 
-			{localStorage.getItem('userToken') ?
-				<>you logged in as {userData.username }</>
+			{userData?.id ?
+				<>you logged in as {userData.username}
+					<Button as={Row} onClick={() => logout(dispatch)} variant="secondary"
+						className="mx-2">logout</Button>
+				</>
 				:
-				<></>}
-			<NavLink as={Col} to={{ pathname: '/login' }}>
-				<Button as={Col} variant="secondary" className="mx-2">login</Button>
-			</NavLink>
-			<Button as={Col} onClick={()=>logout(dispatch)} variant="secondary" className="mx-2">logout</Button>
+				<>
+					<NavLink as={Col} to={{ pathname: '/login' }}>
+						<Button as={Col} variant="secondary" className="mx-2">login</Button>
+					</NavLink>
+				</>}
 		</div>
 	)
 }
