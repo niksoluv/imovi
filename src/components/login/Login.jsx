@@ -56,7 +56,7 @@ const Login = () => {
 							onChange={changeHandler}
 						/>
 						<small id="emailHelp" className="text-danger form-text">
-							{'sioadjfoajsdfj'}
+							{''}
 						</small>
 					</div>
 					<div className="form-group">
@@ -72,14 +72,8 @@ const Login = () => {
 
 						</small>
 					</div>
-					<div className="form-group form-check">
-						<input
-							type="checkbox"
-							className="form-check-input"
-							id="exampleCheck1"
-						/>
-						<NavLink to={{ pathname: '/register' }}>Don't have an account?</NavLink>
-					</div>
+					<NavLink to={{ pathname: '/register' }}>Don't have an account?</NavLink>
+					<br />
 					<button type="submit" className="btn btn-primary">
 						Login
 					</button>

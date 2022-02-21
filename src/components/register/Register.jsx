@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom"
 import { getToken, register, getUserData } from "../../storeAsyncActions/account"
 import { Navigate } from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
-import { registerAction } from "../../store/authReducer";
 import { getDataAction } from './../../store/authReducer';
 
 const Register = () => {
@@ -11,6 +10,7 @@ const Register = () => {
 	const dispatch = useDispatch();
 
 	const [userData, setUserData] = useState({})
+	const [errors, setErrors] = useState({})
 
 	const userInfo = useSelector((state) => {
 		return state.userInfo.userData
@@ -19,19 +19,76 @@ const Register = () => {
 	const changeHandler = (e) => {
 		userData[e.target.id] = e.target.value
 		setUserData(userData)
+		handleErrors()
+	}
+
+	const handleErrors = () => {
+
+		// password
+		var passwordRegex = /^[a-zA-Z0-9_]{8,15}$/
+		let re = new RegExp(passwordRegex);
+		let found = userData.password.match(re)
+		if (found === null) {
+			errors['password'] = 'Password can only contain letters, numbers, and underscores, and must be between 8 and 15 characters long'
+			setErrors({ ...errors })
+		}
+		else {
+			errors['password'] = ''
+			setErrors({ ...errors })
+		}
+
+		// submit password
+		if (userData.password != userData.submitPassword) {
+			errors['submitPassword'] = 'Passwords doesnt match'
+			setErrors({ ...errors })
+		}
+		else {
+			errors['submitPassword'] = ''
+			setErrors({ ...errors })
+		}
+
+		// username
+		var usernameRegex = /^[a-zA-Z0-9_]{4,15}$/
+		re = new RegExp(usernameRegex);
+		found = userData.username.match(re)
+		if (found === null) {
+			errors['username'] = 'Username can only contain letters, numbers, and underscores, and must be between 4 and 15 characters long'
+			setErrors({ ...errors })
+		}
+		else {
+			errors['username'] = ''
+			setErrors({ ...errors })
+		}
+
+		// email
+		var emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+		re = new RegExp(emailRegex);
+		found = userData.email.match(re)
+		if (found === null) {
+			errors['email'] = 'Wrong email'
+			setErrors({ ...errors })
+		}
+		else {
+			errors['email'] = ''
+			setErrors({ ...errors })
+		}
+
 	}
 
 	const submitForm = (e) => {
-		register(userData).then(res => {
-			getToken(res).then(res => {
-				getUserData(res.access_token).then(res=>{
-				const payload = {
-					userData: res
-				}
-				dispatch(getDataAction(payload))
+		if (errors = {}) {
+			setErrors({})
+			register(userData).then(res => {
+				getToken(res).then(res => {
+					getUserData(res.access_token).then(res => {
+						const payload = {
+							userData: res
+						}
+						dispatch(getDataAction(payload))
+					})
 				})
 			})
-		})
+		}
 	}
 	if (userInfo) {
 		if (userInfo?.id) {
@@ -55,26 +112,26 @@ const Register = () => {
 							id="username"
 							name="EmailInput"
 							aria-describedby="emailHelp"
-							placeholder="Enter email"
+							placeholder="Username"
 							onChange={changeHandler}
 						/>
 						<small id="emailHelp" className="text-danger form-text">
-
+							{errors.username}
 						</small>
 					</div>
 					<div className="form-group">
 						<label>Email address</label>
 						<input
-							type="email"
+							type="text"
 							className="form-control"
 							id="email"
 							name="EmailInput"
 							aria-describedby="emailHelp"
-							placeholder="Enter email"
+							placeholder="Email"
 							onChange={changeHandler}
 						/>
 						<small id="emailHelp" className="text-danger form-text">
-							{'sioadjfoajsdfj'}
+							{errors.email}
 						</small>
 					</div>
 					<div className="form-group">
@@ -87,7 +144,7 @@ const Register = () => {
 							onChange={changeHandler}
 						/>
 						<small id="passworderror" className="text-danger form-text">
-
+							{errors.password}
 						</small>
 					</div>
 					<div className="form-group">
@@ -96,25 +153,18 @@ const Register = () => {
 							type="password"
 							className="form-control"
 							id="submitPassword"
-							placeholder="Password"
-
+							placeholder="Submit password"
+							onChange={changeHandler}
 						/>
 						<small id="passworderror" className="text-danger form-text">
-
+							{errors.submitPassword}
 						</small>
 					</div>
-					<div className="form-group form-check">
-						<input
-							type="checkbox"
-							className="form-check-input"
-							id="exampleCheck1"
-						/>
-						<NavLink to={{ pathname: '/login' }}>Already have an account?</NavLink>
-					</div>
+					<NavLink to={{ pathname: '/login' }}>Already have an account?</NavLink>
+					<br />
 					<button type="submit" className="btn btn-primary">
 						Register
 					</button>
-
 				</form>
 			</div>
 		</div>
