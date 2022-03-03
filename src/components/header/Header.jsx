@@ -1,7 +1,17 @@
-import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap"
+import { Button, Col, Container, Form, FormControl, Nav, Navbar, NavDropdown, Row } from "react-bootstrap"
 import { ReactSVG } from "react-svg"
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../storeAsyncActions/account";
 
 const Header = () => {
+
+  const dispatch = useDispatch()
+
+  const userData = useSelector((state) => {
+    return state.userInfo.userData
+  })
+
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -20,7 +30,9 @@ const Header = () => {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="#action1">Home</Nav.Link>
+            <Nav.Link>
+              <NavLink to={{ pathname: '/' }} style={{ textDecoration: 'none', color: 'grey' }}>Trending</NavLink>
+            </Nav.Link>
             <Nav.Link href="#action2">Link</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
@@ -42,6 +54,18 @@ const Header = () => {
               aria-label="Search"
             />
             <Button variant="outline-success">Search</Button>
+            {userData?.id ?
+              <>
+                <Nav.Link href="#" disabled>{userData.username}</Nav.Link>
+                <Button as={Row} onClick={() => logout(dispatch)} variant="secondary"
+                  className="mx-2">logout</Button>
+              </>
+              :
+              <>
+                <NavLink as={Col} to={{ pathname: '/login' }}>
+                  <Button as={Col} variant="secondary" className="mx-2">login</Button>
+                </NavLink>
+              </>}
           </Form>
         </Navbar.Collapse>
       </Container>

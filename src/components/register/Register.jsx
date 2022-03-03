@@ -19,65 +19,75 @@ const Register = () => {
 	const changeHandler = (e) => {
 		userData[e.target.id] = e.target.value
 		setUserData(userData)
-		handleErrors()
+		handleErrors(e.target.id)
 	}
 
-	const handleErrors = () => {
+	const handleErrors = (field) => {
+		let re = new RegExp('')
+		let found = {}
 
-		// password
-		var passwordRegex = /^[a-zA-Z0-9_]{8,15}$/
-		let re = new RegExp(passwordRegex);
-		let found = userData.password.match(re)
-		if (found === null) {
-			errors['password'] = 'Password can only contain letters, numbers, and underscores, and must be between 8 and 15 characters long'
-			setErrors({ ...errors })
-		}
-		else {
-			errors['password'] = ''
-			setErrors({ ...errors })
-		}
-
-		// submit password
-		if (userData.password != userData.submitPassword) {
-			errors['submitPassword'] = 'Passwords doesnt match'
-			setErrors({ ...errors })
-		}
-		else {
-			errors['submitPassword'] = ''
-			setErrors({ ...errors })
-		}
-
-		// username
-		var usernameRegex = /^[a-zA-Z0-9_]{4,15}$/
-		re = new RegExp(usernameRegex);
-		found = userData.username.match(re)
-		if (found === null) {
-			errors['username'] = 'Username can only contain letters, numbers, and underscores, and must be between 4 and 15 characters long'
-			setErrors({ ...errors })
-		}
-		else {
-			errors['username'] = ''
-			setErrors({ ...errors })
-		}
-
-		// email
-		var emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
-		re = new RegExp(emailRegex);
-		found = userData.email.match(re)
-		if (found === null) {
-			errors['email'] = 'Wrong email'
-			setErrors({ ...errors })
-		}
-		else {
-			errors['email'] = ''
-			setErrors({ ...errors })
+		switch (field) {
+			case 'password':
+				// password
+				var passwordRegex = /^[a-zA-Z0-9_]{8,15}$/
+				re = new RegExp(passwordRegex);
+				found = userData.password.match(re)
+				if (found === null) {
+					errors['password'] = 'Password can only contain letters, numbers, and underscores, and must be between 8 and 15 characters long'
+					setErrors({ ...errors })
+				}
+				else {
+					errors['password'] = ''
+					setErrors({ ...errors })
+				}
+				break
+			case 'submitPassword':
+				// submit password
+				if (userData.password != userData.submitPassword) {
+					errors['submitPassword'] = 'Passwords doesnt match'
+					setErrors({ ...errors })
+				}
+				else {
+					errors['submitPassword'] = ''
+					setErrors({ ...errors })
+				}
+				break
+			case 'username':
+				// username
+				var usernameRegex = /^[a-zA-Z0-9_]{4,15}$/
+				re = new RegExp(usernameRegex);
+				found = userData.username?.match(re)
+				if (found === null) {
+					errors['username'] = 'Username can only contain letters, numbers, and underscores, and must be between 4 and 15 characters long'
+					setErrors({ ...errors })
+				}
+				else {
+					errors['username'] = ''
+					setErrors({ ...errors })
+				}
+				break
+			case 'email':
+				// email
+				var emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+				re = new RegExp(emailRegex);
+				found = userData.email?.match(re)
+				if (found === null) {
+					errors['email'] = 'Wrong email'
+					setErrors({ ...errors })
+				}
+				else {
+					errors['email'] = ''
+					setErrors({ ...errors })
+				}
+				break
+			default:
+				break
 		}
 
 	}
 
 	const submitForm = (e) => {
-		if (errors = {}) {
-			setErrors({})
+		if (errors.username === '' && errors.email === '' && errors.password === '' && errors.submitPassword === '') {
 			register(userData).then(res => {
 				getToken(res).then(res => {
 					getUserData(res.access_token).then(res => {

@@ -2,7 +2,7 @@ import { Button, Col, Row } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
 import { getUserData, logout } from "../../storeAsyncActions/account"
 import { useSelector, useDispatch } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { getDataAction } from './../../store/authReducer'
 
 
@@ -13,6 +13,10 @@ const DefaultPage = () => {
 	const userData = useSelector((state) => {
 		return state.userInfo.userData
 	})
+
+	const [movies, setMovies] = useState([])
+
+	useEffect()
 
 	useEffect(() => {
 		if (localStorage.getItem('userToken')) {
@@ -28,20 +32,6 @@ const DefaultPage = () => {
 	return (
 		<div>
 			<h3>default page</h3>
-
-			{userData?.id ?
-				<>you logged in as {userData.username}
-					<br />
-					<Button as={Row} onClick={() => logout(dispatch)} variant="secondary"
-						className="mx-2">logout</Button>
-				</>
-				:
-				<>you're not logged in
-					<br />
-					<NavLink as={Col} to={{ pathname: '/login' }}>
-						<Button as={Col} variant="secondary" className="mx-2">login</Button>
-					</NavLink>
-				</>}
 		</div>
 	)
 }
