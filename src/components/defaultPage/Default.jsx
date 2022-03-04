@@ -15,6 +15,10 @@ const DefaultPage = () => {
 		return state.userInfo.userData
 	})
 
+	const moviesData = useSelector((state) => {
+		return state.movies.movies
+	})
+
 	const [movies, setMovies] = useState([])
 
 	useEffect(() => {
@@ -33,10 +37,27 @@ const DefaultPage = () => {
 						</Card.Body>
 					</Card >)
 			})
-			debugger
 			setMovies(arr)
 		})
 	}, [userData?.id])
+
+	useEffect(() => {
+		const arr = moviesData?.results?.map((el) => {
+			return (
+				<Card className={'overflow-hidden bg-dark card border-secondary mb-1 text-white'} style={{ width: '15rem', height: '18rem' }} onClick={() => { console.log('click') }}>
+					<Card.Img variant="top" src={`https://image.tmdb.org/t/p/original${el.backdrop_path}`} />
+					<Card.Body >
+						<Card.Title>{el.original_title}</Card.Title>
+						<Card.Text >
+							<div >
+								{el.overview}
+							</div>
+						</Card.Text>
+					</Card.Body>
+				</Card >)
+		})
+		setMovies(arr)
+	}, [moviesData?.results])
 
 	useEffect(() => {
 		if (localStorage.getItem('userToken')) {

@@ -3,14 +3,30 @@ import { ReactSVG } from "react-svg"
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../storeAsyncActions/account";
+import { useState } from "react";
+import { search } from "../../storeAsyncActions/movies";
+import { getMoviesAction } from "../../store/moviesReducer";
 
 const Header = () => {
+
+  const [searchKeyword, setSearchKeyword] = useState('')
 
   const dispatch = useDispatch()
 
   const userData = useSelector((state) => {
     return state.userInfo.userData
   })
+
+  const handleChange = (e) => {
+    setSearchKeyword(e.target.value)
+  }
+
+  const submitForm = () => {
+    search(searchKeyword).then(res => {
+      const payload = { movies: res }
+      dispatch(getMoviesAction(payload))
+    })
+  }
 
   return (
     <Navbar bg="light" expand="lg">
@@ -46,14 +62,22 @@ const Header = () => {
               Link
             </Nav.Link>
           </Nav>
-          <Form className="d-flex">
+          <Form className="d-flex"
+            onSubmit={(e) => {
+              e.preventDefault()
+              submitForm()
+            }}
+          >
             <FormControl
               type="search"
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              onChange={(e) => {
+                handleChange(e)
+              }}
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success" type='submit'>Search</Button>
             {userData?.id ?
               <>
                 <Nav.Link href="#" disabled>{userData.username}</Nav.Link>
