@@ -16,9 +16,10 @@ const DefaultPage = () => {
 
 	const [movies, setMovies] = useState([])
 
-	useEffect()
+	//useEffect()
 
 	useEffect(() => {
+		debugger
 		if (localStorage.getItem('userToken')) {
 			getUserData(localStorage.getItem('userToken')).then(res => {
 				const payload = {
