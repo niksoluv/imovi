@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const MovieCard = (props) => {
 
   return (
-    <Card className={'overflow-hidden bg-dark card border-secondary mb-1 text-white'} style={{ width: '15rem', height: '18rem' }}>
+    <Card className={'overflow-hidden bg-dark card border-secondary mb-1 text-white'} style={{ width: '10rem', height: '15rem' }}>
       <NavLink to={{
         pathname: '/details'
       }}
