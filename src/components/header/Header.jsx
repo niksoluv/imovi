@@ -47,7 +47,10 @@ const Header = () => {
             navbarScroll
           >
             <Nav.Link>
-              <NavLink to={{ pathname: '/' }} style={{ textDecoration: 'none', color: 'grey' }}>Trending</NavLink>
+              <NavLink onClick={() => {
+                const payload = { movies: [] }
+                dispatch(getMoviesAction(payload))
+              }} to={{ pathname: '/trending' }} style={{ textDecoration: 'none', color: 'grey' }}>Trending</NavLink>
             </Nav.Link>
             <Nav.Link href="#action2">Link</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
@@ -77,7 +80,11 @@ const Header = () => {
                 handleChange(e)
               }}
             />
-            <Button variant="outline-success" type='submit'>Search</Button>
+            <NavLink as={Col} to={{ pathname: '/search' }}>
+              <Button variant="outline-success" onClick={() => {
+                submitForm()
+              }} type='submit'>Search</Button>
+            </NavLink>
             {userData?.id ?
               <>
                 <Nav.Link href="#" disabled>{userData.username}</Nav.Link>
