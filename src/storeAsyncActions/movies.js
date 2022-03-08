@@ -34,5 +34,5 @@ export const getMovieCast = async (movie) => {
             res = await axios.get(`${variables.DEFAULT_URL}tv/${movie.id}/credits?api_key=${variables.API_KEY}&language=en-US`)
             break
     }
-    return res.data.cast ? res.data.cast : res.data.crew
+    return res.data.cast.length > 0 ? res.data.cast : res.data.crew
 }
