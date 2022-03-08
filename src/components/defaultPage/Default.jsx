@@ -26,6 +26,7 @@ const DefaultPage = (props) => {
 		switch (props.mode) {
 			case 'default':
 				getTrending().then(res => {
+					console.log(res)
 					const arr = res.results.map((el) => {
 						return (
 							<MovieCard movie={el} />

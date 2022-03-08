@@ -13,8 +13,8 @@ import Details from './components/details/Details';
 function App() {
   return (
     <BrowserRouter>
-      <Container >
-        <Header />
+      <Header />
+      <Container fluid >
         <Routes>
           <Route path='/' element={<DefaultPage mode='default' />} />
           <Route path='/trending' element={<DefaultPage mode='default' />} />
