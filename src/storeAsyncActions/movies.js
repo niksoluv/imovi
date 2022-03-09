@@ -1,8 +1,13 @@
 import axios from "axios"
 import { variables } from "../variables"
 
-export const getTrending = async () => {
-    let response = await axios.get(`${variables.DEFAULT_URL}trending/all/day?api_key=${variables.API_KEY}`)
+export const getTrending = async (period, type) => {
+    let response = await axios.get(`${variables.DEFAULT_URL}trending/${type}/${period}?api_key=${variables.API_KEY}`)
+    return response.data
+}
+
+export const getMovies = async (type) => {
+    let response = await axios.get(`${variables.DEFAULT_URL}movie/${type}?api_key=${variables.API_KEY}&language=en-US`)
     return response.data
 }
 
