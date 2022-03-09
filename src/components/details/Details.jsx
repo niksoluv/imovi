@@ -52,7 +52,7 @@ const Details = (props) => {
           </Row>
           <Row xs="auto">
             <Col><Badge bg="dark">{genres}</Badge></Col>
-            <Col><Badge bg="dark">{movie.media_type === 'movie' ?
+            <Col><Badge bg="dark">{movieData?.runtime ?
               movieData?.runtime
               :
               movieData?.episode_run_time ? movieData?.episode_run_time[0] : ''}m</Badge></Col>
