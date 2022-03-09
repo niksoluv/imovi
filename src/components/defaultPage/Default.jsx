@@ -1,4 +1,4 @@
-import { Button, Card, Container, Col, Row, ButtonGroup, ButtonToolbar } from "react-bootstrap"
+import { Button, Card, Container, Col, Row, ButtonGroup, ButtonToolbar, ToggleButton } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
 import { getUserData, logout } from "../../storeAsyncActions/account"
 import { useSelector, useDispatch } from "react-redux"
@@ -15,9 +15,31 @@ const DefaultPage = (props) => {
 
 	const [period, setPeriod] = useState('day')
 	const [trendingType, setTrendingType] = useState('all')
-	const [moviesType, setMoviesType] = useState('latest')
+	const [moviesType, setMoviesType] = useState('now_playing')
 	const [trending, setTrending] = useState([])
 	const [movies, setMovies] = useState([])
+
+	const [trendingTypeRadioValue, setTrendingTypeRadioValue] = useState('1')
+	const [trendingPeriodRadioValue, setTrendingPeriodRadioValue] = useState('1')
+	const [movieRadioValue, setMovieRadioValue] = useState('1')
+
+	const trendingPeriodRadios = [
+		{ name: 'day', value: '1', displayName: 'day' },
+		{ name: 'week', value: '2', displayName: 'week' },
+	]
+
+	const trendingTypeRadios = [
+		{ name: 'all', value: '1', displayName: 'all' },
+		{ name: 'movie', value: '2', displayName: 'movie' },
+		{ name: 'tv', value: '3', displayName: 'tv' },
+	]
+
+	const movieRadios = [
+		{ name: 'now_playing', value: '1', displayName: 'now playing' },
+		{ name: 'popular', value: '2', displayName: 'popular' },
+		{ name: 'top_rated', value: '3', displayName: 'top rated' },
+		{ name: 'upcoming', value: '4', displayName: 'upcoming' },
+	];
 
 	const Arrow = ({ text, className }) => {
 		return <div className={className}>{text}</div>;
@@ -99,14 +121,42 @@ const DefaultPage = (props) => {
 		<Container fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
 			Trending
 			<Row xs="auto">
-				<ButtonGroup bsSize="xsmall" onClick={(e) => handlePeriod(e.target.value)} xs={1}>
-					<Button value={'day'} variant="secondary">day</Button>
-					<Button value={'week'} variant="secondary">week</Button>
+
+				{/* trending period toggle */}
+				<ButtonGroup>
+					{trendingPeriodRadios.map((radio, idx) => (
+						<ToggleButton
+							onClick={(e) => handlePeriod(radio.name)}
+							key={radio.name}
+							id={`radio-${radio.name}`}
+							type="radio"
+							variant={'outline-danger'}
+							name={radio.name}
+							value={radio.value}
+							checked={trendingPeriodRadioValue === radio.value}
+							onChange={(e) => setTrendingPeriodRadioValue(e.currentTarget.value)}
+						>
+							{radio.displayName}
+						</ToggleButton>
+					))}
 				</ButtonGroup>
-				<ButtonGroup bsSize="xsmall" onClick={(e) => handleType(e.target.value)} xs={1}>
-					<Button value={'all'} variant="secondary">all</Button>
-					<Button value={'movie'} variant="secondary">movie</Button>
-					<Button value={'tv'} variant="secondary">tv</Button>
+				{/* trending type toggle */}
+				<ButtonGroup>
+					{trendingTypeRadios.map((radio, idx) => (
+						<ToggleButton
+							onClick={(e) => handleType(radio.name)}
+							key={radio.name}
+							id={`radio-${radio.name}`}
+							type="radio"
+							variant={'outline-danger'}
+							name={radio.name}
+							value={radio.value}
+							checked={trendingTypeRadioValue === radio.value}
+							onChange={(e) => setTrendingTypeRadioValue(e.currentTarget.value)}
+						>
+							{radio.displayName}
+						</ToggleButton>
+					))}
 				</ButtonGroup>
 				<ScrollMenu
 					arrowLeft={(ArrowLeft)}
@@ -121,14 +171,23 @@ const DefaultPage = (props) => {
 
 			Movies
 			<Row xs="auto">
-				<ButtonToolbar >
-					<ButtonGroup type="radio" bsSize="small" onClick={(e) => handleMovies(e.target.value)} xs={1}>
-						<Button value={'now_playing'} >now playing</Button>
-						<Button value={'popular'} >popular</Button>
-						<Button value={'top_rated'} >top rated</Button>
-						<Button value={'upcoming'} >upcoming</Button>
-					</ButtonGroup>
-				</ButtonToolbar>
+				<ButtonGroup>
+					{movieRadios.map((radio, idx) => (
+						<ToggleButton
+							onClick={(e) => handleMovies(radio.name)}
+							key={radio.name}
+							id={`radio-${radio.name}`}
+							type="radio"
+							variant={'outline-danger'}
+							name={radio.name}
+							value={radio.value}
+							checked={movieRadioValue === radio.value}
+							onChange={(e) => setMovieRadioValue(e.currentTarget.value)}
+						>
+							{radio.displayName}
+						</ToggleButton>
+					))}
+				</ButtonGroup>
 				<ScrollMenu
 					arrowLeft={(ArrowLeft)}
 					arrowRight={ArrowRight}

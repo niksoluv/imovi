@@ -3,10 +3,9 @@ import { NavLink } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 
 const MovieCard = (props) => {
-
-
   return (
-    <Card key={props.movie.id} className={'overflow-hidden card border-secondary m-1 text-white'} style={{ width: '10rem',border: 'none' }}>
+    <Card key={props.movie.id}
+      className={'overflow-hidden card border-secondary m-1 text-white'} style={{ width: '10rem', border: 'none' }}>
       <NavLink to={{
         pathname: '/details'
       }}

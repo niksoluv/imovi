@@ -25,6 +25,9 @@ export const getMovieDetails = async (movie) => {
         case 'tv':
             res = await axios.get(`${variables.DEFAULT_URL}tv/${movie.id}?api_key=${variables.API_KEY}&language=en-US`)
             break
+        default:
+            res = await axios.get(`${variables.DEFAULT_URL}movie/${movie.id}?api_key=${variables.API_KEY}&language=en-US`)
+            break
     }
     return res.data
 }
