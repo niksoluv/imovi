@@ -1,12 +1,7 @@
-import { Button, Card, Container, Col, Row, ButtonGroup, ButtonToolbar, ToggleButton } from "react-bootstrap"
-import { NavLink } from "react-router-dom"
-import { getUserData, logout } from "../../storeAsyncActions/account"
+import { Container, Row } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
-import { getDataAction } from './../../store/authReducer'
-import { getMovies, getTrending } from "../../storeAsyncActions/movies"
 import MovieCard from "../movieCard/MovieCard"
-import { ScrollMenu } from "react-horizontal-scrolling-menu"
 
 
 const SearchPage = (props) => {

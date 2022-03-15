@@ -2,10 +2,11 @@ import { Button, Col, Container, Form, FormControl, Nav, Navbar, NavDropdown, Ro
 import { ReactSVG } from "react-svg"
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../storeAsyncActions/account";
-import { useState } from "react";
+import { getUserData, logout } from "../../storeAsyncActions/account";
+import { useEffect, useState } from "react";
 import { search } from "../../storeAsyncActions/movies";
 import { getMoviesAction } from "../../store/moviesReducer";
+import { getDataAction } from "../../store/authReducer";
 
 const Header = () => {
 
@@ -27,6 +28,17 @@ const Header = () => {
       dispatch(getMoviesAction(payload))
     })
   }
+
+	useEffect(() => {
+		if (localStorage.getItem('userToken')) {
+			getUserData(localStorage.getItem('userToken')).then(res => {
+				const payload = {
+					userData: res
+				}
+				dispatch(getDataAction(payload))
+			})
+		}
+	}, [userData?.id])
 
   return (
     <Navbar bg="light" expand="lg">
