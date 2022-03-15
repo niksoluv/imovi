@@ -6,7 +6,8 @@ const CastCard = (props) => {
 
   const actor = props.state
   return (
-    <Card className={'overflow-hidden card border-secondary m-1 text-white'} style={{ width: '7rem', border: 'none' }}>
+    <Card key={actor.id}
+      className={'overflow-hidden card border-secondary m-1 text-white'} style={{ width: '7rem', border: 'none' }}>
       <NavLink to={{
         pathname: '/details'
       }}

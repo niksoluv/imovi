@@ -1,5 +1,5 @@
 import { Container, Row, ButtonGroup, ToggleButton } from "react-bootstrap"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { getMovies, getTrending } from "../../storeAsyncActions/movies"
 import MovieCard from "../movieCard/MovieCard"
@@ -7,8 +7,6 @@ import { ScrollMenu } from "react-horizontal-scrolling-menu"
 
 
 const DefaultPage = (props) => {
-
-	const dispatch = useDispatch()
 
 	const [period, setPeriod] = useState('day')
 	const [trendingType, setTrendingType] = useState('all')

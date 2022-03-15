@@ -43,7 +43,7 @@ const VideoModal = (props) => {
 
             <Dropdown.Menu variant="dark">
               {videos?.map(el => {
-                return <Dropdown.Item onClick={() => {
+                return <Dropdown.Item key={el.id} onClick={() => {
                   console.log('fff')
                   setChoice(el)
                 }}>{el.name}</Dropdown.Item>
