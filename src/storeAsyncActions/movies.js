@@ -47,3 +47,19 @@ export const getMovieCast = async (movie) => {
     }
     return res.data.cast.length > 0 ? res.data.cast : res.data.crew
 }
+
+export const getVideos = async (movie) => {
+    let res = {}
+    switch (movie.media_type) {
+        case 'movie':
+            res = await axios.get(`${variables.DEFAULT_URL}movie/${movie.id}/videos?api_key=${variables.API_KEY}&language=en-US`)
+            break
+        case 'tv':
+            res = await axios.get(`${variables.DEFAULT_URL}tv/${movie.id}/videos?api_key=${variables.API_KEY}&language=en-US`)
+            break
+        default:
+            res = await axios.get(`${variables.DEFAULT_URL}movie/${movie.id}/videos?api_key=${variables.API_KEY}&language=en-US`)
+            break
+    }
+    return res.data
+}

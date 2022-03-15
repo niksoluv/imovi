@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Animated } from 'react-animated-css'
-import { Badge, Col, Container, Image, Row } from 'react-bootstrap'
+import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 import { NavLink, useLocation } from 'react-router-dom'
 import { getMovieCast, getMovieDetails } from '../../storeAsyncActions/movies'
 import CastCard from '../castCard/CastCard'
+import VideoModal from './modal/VideoModal'
 
 const Details = (props) => {
 
   const [movieData, setMovieData] = useState({})
   const [cast, setCast] = useState([])
   const location = useLocation()
+  const [modalShow, setModalShow] = useState(false);
 
   const movie = location.state.movie
 
@@ -39,6 +41,11 @@ const Details = (props) => {
 
   return (
     <Container className=' p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
+      <VideoModal
+        state={movieData}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
       <Row>
         <Col lg={6} xs={'auto'} width={50}>
           <Image fluid={true} src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`} rounded />
@@ -48,7 +55,7 @@ const Details = (props) => {
             <h1>
               {movieData.title ? movieData.title : movieData.original_name} {`(${date.getFullYear()})`}
             </h1>
-            <p className="font-italic">sdf</p>
+            <p className="font-italic">{movieData.tagline}</p>
           </Row>
           <Row xs="auto">
             <Col><Badge bg="dark">{genres}</Badge></Col>
@@ -58,6 +65,11 @@ const Details = (props) => {
               movieData?.episode_run_time ? movieData?.episode_run_time[0] : ''}m</Badge></Col>
           </Row>
           {movieData.overview}
+          <Row xs="auto">
+            <Button variant="danger" onClick={() => setModalShow(true)}>
+              Watch trailer
+            </Button>
+          </Row>
         </Col>
       </Row>
       Cast

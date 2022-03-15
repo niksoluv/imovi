@@ -126,6 +126,7 @@ const DefaultPage = (props) => {
 				<ButtonGroup>
 					{trendingPeriodRadios.map((radio, idx) => (
 						<ToggleButton
+							size="sm"
 							onClick={(e) => handlePeriod(radio.name)}
 							key={radio.name}
 							id={`radio-${radio.name}`}
@@ -144,6 +145,7 @@ const DefaultPage = (props) => {
 				<ButtonGroup>
 					{trendingTypeRadios.map((radio, idx) => (
 						<ToggleButton
+							size="sm"
 							onClick={(e) => handleType(radio.name)}
 							key={radio.name}
 							id={`radio-${radio.name}`}
@@ -174,6 +176,7 @@ const DefaultPage = (props) => {
 				<ButtonGroup>
 					{movieRadios.map((radio, idx) => (
 						<ToggleButton
+							size="sm"
 							onClick={(e) => handleMovies(radio.name)}
 							key={radio.name}
 							id={`radio-${radio.name}`}
