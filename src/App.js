@@ -16,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Container fluid >
+      <Container fluid className="font-link">
         <Routes>
           <Route path='/' element={<DefaultPage mode='default' />} />
           <Route path='/trending' element={<DefaultPage mode='default' />} />
