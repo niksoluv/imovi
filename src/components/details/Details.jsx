@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Animated } from 'react-animated-css'
 import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 import { NavLink, useLocation } from 'react-router-dom'
 import { getMovieCast, getMovieDetails } from '../../storeAsyncActions/movies'
 import CastCard from '../castCard/CastCard'
+import FavButton from './favButton/FavButton'
 import VideoModal from './modal/VideoModal'
 
 const Details = (props) => {
@@ -69,6 +69,9 @@ const Details = (props) => {
             <Button variant="danger" onClick={() => setModalShow(true)}>
               Watch trailer
             </Button>
+          </Row>
+          <Row xs="auto">
+            <FavButton state={movieData} />
           </Row>
         </Col>
       </Row>

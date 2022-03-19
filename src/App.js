@@ -9,6 +9,7 @@ import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import Details from './components/details/Details';
 import SearchPage from './components/search/SearchPage';
+import FavouritesPage from './components/favourites/FavouritesPage';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/search' element={<SearchPage mode='search' />} />
           <Route path='/details' element={<Details />} />
+          <Route path='/favourites' element={<FavouritesPage />} />
         </Routes>
         <Footer />
       </Container>

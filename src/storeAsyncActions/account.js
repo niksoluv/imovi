@@ -33,3 +33,62 @@ export const logout = (dispatch) => {
   const payload = { userData: {} }
   dispatch(logoutAction(payload))
 }
+
+export const isMovieInFavourites = async (movieId) => {
+  let res = await axios.get(`${variables.API_URL}api/Movies/${movieId}`,
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+      }
+    })
+  return res.data
+}
+
+export const addToFavourites = async (movie) => {
+  debugger
+  const res = await axios.post(`${variables.API_URL}api/Movies/addToFavourites`,
+    {
+      movieId: `${movie.id}`,
+      mediaType: movie.media_type === undefined ? 'tv' : movie.media_type
+    },
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+      }
+    })
+  return res.data
+}
+
+export const removeFromFavourites = async (movieId) => {
+  debugger
+  const res = await axios.delete(`${variables.API_URL}api/Movies/removeFromFavourites`, {
+    data: { movieId: `${movieId}` },
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+    }
+  })
+  return res.data
+}
+
+export const getFavourites = async () => {
+  let res = await axios.get(`${variables.API_URL}api/Movies`,
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+      }
+    })
+  const reqArr = res.data.map(el => {
+    switch (el.mediaType) {
+      case 'movie':
+        return axios.get(`${variables.DEFAULT_URL}movie/${el.movieId}?api_key=${variables.API_KEY}&language=en-US`)
+      case 'tv':
+        return axios.get(`${variables.DEFAULT_URL}tv/${el.movieId}?api_key=${variables.API_KEY}&language=en-US`)
+      default:
+        return axios.get(`${variables.DEFAULT_URL}movie/${el.movieId}?api_key=${variables.API_KEY}&language=en-US`)
+    }
+  })
+
+  const result = await axios.all(reqArr)
+
+  return result
+}
