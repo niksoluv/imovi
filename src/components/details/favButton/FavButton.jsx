@@ -19,13 +19,14 @@ const FavButton = (props) => {
   })
 
   useEffect(() => {
-    if (userData !== undefined) {
+    debugger
+    if (Object.keys(userData).length !== 0) {
       isMovieInFavourites(props?.state?.id).then(res => {
         if (userData === undefined) {
           setCaption(captions.login)
         }
         else {
-          setCaption(res===true ? captions.remove : captions.add)
+          setCaption(res === true ? captions.remove : captions.add)
         }
       })
     }

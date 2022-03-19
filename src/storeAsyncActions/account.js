@@ -30,7 +30,7 @@ export const getToken = async (userData) => {
 
 export const logout = (dispatch) => {
   localStorage.removeItem('userToken')
-  const payload = { userData: {} }
+  const payload = { userData: undefined }
   dispatch(logoutAction(payload))
 }
 

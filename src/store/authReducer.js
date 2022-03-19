@@ -14,7 +14,7 @@ export const authReducer = (state = defaultState, action) => {
     case REGISTER:
       return { ...state, userData: action.payload.userData }
     case LOGOUT:
-      return { ...state, userData: action.payload.userData }
+      return { ...state, userData: {} }
     case GET_DATA:
       return { ...state, userData: action.payload.userData }
     default:
