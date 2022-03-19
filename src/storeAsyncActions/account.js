@@ -49,7 +49,7 @@ export const addToFavourites = async (movie) => {
   const res = await axios.post(`${variables.API_URL}api/Movies/addToFavourites`,
     {
       movieId: `${movie.id}`,
-      mediaType: movie.media_type === undefined ? 'tv' : movie.media_type
+      mediaType: movie.number_of_seasons !== undefined ? 'tv' : 'movie'
     },
     {
       headers: {
