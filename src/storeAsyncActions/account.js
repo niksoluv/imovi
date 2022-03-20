@@ -35,17 +35,18 @@ export const logout = (dispatch) => {
 }
 
 export const isMovieInFavourites = async (movieId) => {
-  let res = await axios.get(`${variables.API_URL}api/Movies/${movieId}`,
-    {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
-      }
-    })
-  return res.data
+  if (movieId !== undefined) {
+    let res = await axios.get(`${variables.API_URL}api/Movies/${movieId}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+      })
+    return res.data
+  }
 }
 
 export const addToFavourites = async (movie) => {
-  debugger
   const res = await axios.post(`${variables.API_URL}api/Movies/addToFavourites`,
     {
       movieId: `${movie.id}`,
@@ -60,7 +61,6 @@ export const addToFavourites = async (movie) => {
 }
 
 export const removeFromFavourites = async (movieId) => {
-  debugger
   const res = await axios.delete(`${variables.API_URL}api/Movies/removeFromFavourites`, {
     data: { movieId: `${movieId}` },
     headers: {

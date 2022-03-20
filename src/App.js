@@ -10,12 +10,13 @@ import Header from './components/header/Header';
 import Details from './components/details/Details';
 import SearchPage from './components/search/SearchPage';
 import FavouritesPage from './components/favourites/FavouritesPage';
+import CastDetail from './components/details/castDetail/CastDetail';
 
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
+      <Header className="font-link"/>
       <Container fluid className="font-link">
         <Routes>
           <Route path='/' element={<DefaultPage mode='default' />} />
@@ -25,8 +26,9 @@ function App() {
           <Route path='/search' element={<SearchPage mode='search' />} />
           <Route path='/details' element={<Details />} />
           <Route path='/favourites' element={<FavouritesPage />} />
+          <Route path='/castDetail' element={<CastDetail />} />
         </Routes>
-        <Footer />
+        <Footer className="font-link"/>
       </Container>
     </BrowserRouter>
   );

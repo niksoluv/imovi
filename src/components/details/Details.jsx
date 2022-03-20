@@ -3,7 +3,7 @@ import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 import { NavLink, useLocation } from 'react-router-dom'
 import { getMovieCast, getMovieDetails } from '../../storeAsyncActions/movies'
-import CastCard from '../castCard/CastCard'
+import CastCard from './castCard/CastCard'
 import FavButton from './favButton/FavButton'
 import VideoModal from './modal/VideoModal'
 

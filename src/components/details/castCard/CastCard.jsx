@@ -9,9 +9,9 @@ const CastCard = (props) => {
     <Card key={actor.id}
       className={'overflow-hidden card border-secondary m-1 text-white'} style={{ width: '7rem', border: 'none' }}>
       <NavLink to={{
-        pathname: '/details'
+        pathname: '/castDetail'
       }}
-        state={{ movie: props.movie }}
+        state={{ actor: actor }}
         style={{ textDecoration: 'none', color: 'grey' }}>
         <Card.Img src={`https://image.tmdb.org/t/p/original${actor.profile_path}`} />
         <Card.Text className="mt-0.5" >
