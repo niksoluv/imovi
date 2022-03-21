@@ -1,7 +1,7 @@
 import { Container, Row, ButtonGroup, ToggleButton } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
-import { getMovies, getTrending } from "../../storeAsyncActions/movies"
+import { getMovies, getPopular, getTrending } from "../../storeAsyncActions/movies"
 import MovieCard from "../movieCard/MovieCard"
 import { ScrollMenu } from "react-horizontal-scrolling-menu"
 
@@ -11,12 +11,15 @@ const DefaultPage = (props) => {
 	const [period, setPeriod] = useState('day')
 	const [trendingType, setTrendingType] = useState('all')
 	const [moviesType, setMoviesType] = useState('now_playing')
+	const [popularType, setPopularType] = useState('popular tv')
 	const [trending, setTrending] = useState([])
 	const [movies, setMovies] = useState([])
+	const [popular, setPopular] = useState([])
 
 	const [trendingTypeRadioValue, setTrendingTypeRadioValue] = useState('1')
 	const [trendingPeriodRadioValue, setTrendingPeriodRadioValue] = useState('1')
 	const [movieRadioValue, setMovieRadioValue] = useState('1')
+	const [popularRadioValue, setPopularRadioValue] = useState('1')
 
 	const trendingPeriodRadios = [
 		{ name: 'day', value: '1', displayName: 'day' },
@@ -31,17 +34,14 @@ const DefaultPage = (props) => {
 
 	const movieRadios = [
 		{ name: 'now_playing', value: '1', displayName: 'now playing' },
-		{ name: 'popular', value: '2', displayName: 'popular' },
-		{ name: 'top_rated', value: '3', displayName: 'top rated' },
-		{ name: 'upcoming', value: '4', displayName: 'upcoming' },
+		{ name: 'top_rated', value: '2', displayName: 'top rated' },
+		{ name: 'upcoming', value: '3', displayName: 'upcoming' },
 	];
 
-	const Arrow = ({ text, className }) => {
-		return <div className={className}>{text}</div>;
-	};
-
-	const ArrowLeft = Arrow({ text: "<", className: "arrow-prev" });
-	const ArrowRight = Arrow({ text: ">", className: "arrow-next" });
+	const popularRadios = [
+		{ name: 'popular tv', value: '1', displayName: 'on tv' },
+		{ name: 'popular movie', value: '2', displayName: 'in theatres' },
+	];
 
 	const moviesData = useSelector((state) => {
 		return state.movies.movies
@@ -85,6 +85,19 @@ const DefaultPage = (props) => {
 		})
 	}, [moviesType])
 
+	useEffect(() => {
+		getPopular(popularType.split(' ')[1]).then(res => {
+			console.log(res)
+			const arr = res.results.map((el) => {
+				el.media_type = popularType.split(' ')[1]
+				return (
+					<MovieCard movie={el} />
+				)
+			})
+			setPopular(arr)
+		})
+	}, [popularType])
+
 	const handlePeriod = (period) => {
 		setPeriod(period)
 	}
@@ -97,12 +110,14 @@ const DefaultPage = (props) => {
 		setMoviesType(type)
 	}
 
+	const handlePopular = (type) => {
+		setPopularType(type)
+	}
+
 	return (
 		<Container fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
 			Trending
 			<Row xs="auto">
-
-				{/* trending period toggle */}
 				<ButtonGroup>
 					{trendingPeriodRadios.map((radio, idx) => (
 						<ToggleButton
@@ -121,7 +136,6 @@ const DefaultPage = (props) => {
 						</ToggleButton>
 					))}
 				</ButtonGroup>
-				{/* trending type toggle */}
 				<ButtonGroup>
 					{trendingTypeRadios.map((radio, idx) => (
 						<ToggleButton
@@ -141,13 +155,40 @@ const DefaultPage = (props) => {
 					))}
 				</ButtonGroup>
 				<ScrollMenu
-					arrowLeft={(ArrowLeft)}
-					arrowRight={ArrowRight}
 					dragging={true}
 					wheel={false}
 					alignCenter={false}
 					clickWhenDrag={false} >
 					{trending}
+				</ScrollMenu>
+			</Row>
+
+			Popular
+			<Row xs="auto">
+				<ButtonGroup>
+					{popularRadios.map((radio, idx) => (
+						<ToggleButton
+							size="sm"
+							onClick={(e) => handlePopular(radio.name)}
+							key={radio.name}
+							id={`radio-${radio.name}`}
+							type="radio"
+							variant={'outline-danger'}
+							name={radio.name}
+							value={radio.value}
+							checked={popularRadioValue === radio.value}
+							onChange={(e) => setPopularRadioValue(e.currentTarget.value)}
+						>
+							{radio.displayName}
+						</ToggleButton>
+					))}
+				</ButtonGroup>
+				<ScrollMenu
+					dragging={true}
+					wheel={false}
+					alignCenter={false}
+					clickWhenDrag={false} >
+					{popular}
 				</ScrollMenu>
 			</Row>
 
@@ -172,8 +213,6 @@ const DefaultPage = (props) => {
 					))}
 				</ButtonGroup>
 				<ScrollMenu
-					arrowLeft={(ArrowLeft)}
-					arrowRight={ArrowRight}
 					dragging={true}
 					wheel={false}
 					alignCenter={false}

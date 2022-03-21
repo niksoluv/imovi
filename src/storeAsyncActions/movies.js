@@ -11,6 +11,11 @@ export const getMovies = async (type) => {
 	return response.data
 }
 
+export const getPopular = async (type) => {
+	let response = await axios.get(`${variables.DEFAULT_URL}${type}/popular?api_key=${variables.API_KEY}&language=en-US`)
+	return response.data
+}
+
 export const search = async (keyword) => {
 	const res = await axios.get(`${variables.DEFAULT_URL}search/multi?api_key=${variables.API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=false`)
 	return res.data

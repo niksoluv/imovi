@@ -16,7 +16,7 @@ const MovieCard = (props) => {
           :
           <Card.Img style={smallImageStyle} fluid src={notFoundUrl.movieSmallPoster} />
         }
-        <Card.Text className="mt-0.5 p-2" >
+        <Card.Text className="mt-0.5 p-2 overflow-hidden" style={{height:'60px'}} >
           {props.movie.original_title ? props.movie.original_title : props.movie.original_name}
         </Card.Text>
       </NavLink>

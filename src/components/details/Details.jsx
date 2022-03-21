@@ -39,7 +39,7 @@ const Details = (props) => {
       style={{ color: 'white !important' }}
       to={{ pathname: el.name }}>{el.name}{index === movieData.genres.length - 1 ? '' : ', '}</NavLink>
   })
-
+  
   return (
     <Container className=' p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
       <VideoModal
