@@ -3,6 +3,7 @@ import { Col, Container, Image, Row, Table } from "react-bootstrap"
 import { ScrollMenu } from "react-horizontal-scrolling-menu"
 import { useLocation } from "react-router"
 import { getActorData, getCombinedCredits, mapCreditsTable } from "../../../storeAsyncActions/cast"
+import { notFoundUrl } from "../../../variables"
 import MovieCard from "../../movieCard/MovieCard"
 
 const CastDetail = (props) => {
@@ -11,6 +12,7 @@ const CastDetail = (props) => {
   const [biography, setBiography] = useState("")
   const [credits, setCredits] = useState([])
   const [table, setTable] = useState([])
+  const [aka, setAka] = useState('')
 
   const location = useLocation()
 
@@ -41,22 +43,35 @@ const CastDetail = (props) => {
       actor.biography === "")
       setBiography(`We don't have a biography for ${actor.name}.`)
     else {
-      const arr = actor.biography.split("\n")
-      const block = arr.map(el => <p>{el}</p>)
-      setBiography(block)
+      if (actor.biography.length > 800) {
+        const arr = actor.biography.slice(0, 800).split("\n")
+        const block = arr.map(el => <p>{el}</p>)
+        setBiography(block)
+      }
+      else {
+        const arr = actor.biography.split("\n")
+        const block = arr.map(el => <p>{el}</p>)
+        setBiography(block)
+      }
     }
+
+    setAka(actor.also_known_as[0])
   }
 
   return (
-    <Container className=' p-2' fluid={true}  >
+    <Container className=' p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10}  >
       <Row>
-        <Col lg={3} md={3} sm={1}>
-          <Image fluid={true} src={`https://image.tmdb.org/t/p/original${actorData.profile_path}`} rounded />
+        <Col xs lg={3} md={3} sm={1}>
+          {actorData.profile_path === undefined || actorData.profile_path == null ?
+            <Image fluid={true} src={notFoundUrl.actor} rounded />
+            :
+            <Image fluid={true} src={`https://image.tmdb.org/t/p/original${actorData.profile_path}`} rounded />
+          }
         </Col>
-        <Col>
-          <Row height={50}>
+        <Col xs lg={9} md={9}>
+          <Row >
             <h1>
-              {`${actorData.name} (${actorData.also_known_as})`}
+              {`${actorData.name} (${aka})`}
             </h1>
             <p className="font-italic">{biography}</p>
           </Row >

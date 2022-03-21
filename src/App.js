@@ -16,20 +16,22 @@ import CastDetail from './components/details/castDetail/CastDetail';
 function App() {
   return (
     <BrowserRouter>
-      <Header className="font-link"/>
-      <Container fluid className="font-link">
-        <Routes>
-          <Route path='/' element={<DefaultPage mode='default' />} />
-          <Route path='/trending' element={<DefaultPage mode='default' />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/search' element={<SearchPage mode='search' />} />
-          <Route path='/details' element={<Details />} />
-          <Route path='/favourites' element={<FavouritesPage />} />
-          <Route path='/castDetail' element={<CastDetail />} />
-        </Routes>
-        <Footer className="font-link"/>
-      </Container>
+      <div className="content-container">
+        <Header className="font-link content-container" />
+        <Container fluid className="font-link" style={{ paddingBottom: '60px' }}>
+          <Routes>
+            <Route path='/' element={<DefaultPage mode='default' />} />
+            <Route path='/trending' element={<DefaultPage mode='default' />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/search' element={<SearchPage mode='search' />} />
+            <Route path='/details' element={<Details />} />
+            <Route path='/favourites' element={<FavouritesPage />} />
+            <Route path='/castDetail' element={<CastDetail />} />
+          </Routes>
+        </Container>
+      </div>
+      <Footer />
     </BrowserRouter>
   );
 }

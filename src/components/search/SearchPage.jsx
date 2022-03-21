@@ -6,8 +6,6 @@ import MovieCard from "../movieCard/MovieCard"
 
 const SearchPage = (props) => {
 
-  const dispatch = useDispatch()
-
   const [movies, setMovies] = useState([])
 
   const moviesData = useSelector((state) => {

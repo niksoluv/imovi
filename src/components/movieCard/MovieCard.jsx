@@ -1,6 +1,6 @@
-import { Card, Image } from "react-bootstrap"
+import { Card } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
-import { useNavigate } from "react-router-dom";
+import { smallImageStyle, notFoundUrl } from "../../variables"
 
 const MovieCard = (props) => {
   return (
@@ -11,8 +11,12 @@ const MovieCard = (props) => {
       }}
         state={{ movie: props.movie }}
         style={{ textDecoration: 'none', color: 'grey' }}>
-        <Card.Img src={`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`} />
-        <Card.Text className="mt-0.5" >
+        {props.movie.poster_path ?
+          <Card.Img style={smallImageStyle} fluid src={`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`} />
+          :
+          <Card.Img style={smallImageStyle} fluid src={notFoundUrl.movieSmallPoster} />
+        }
+        <Card.Text className="mt-0.5 p-2" >
           {props.movie.original_title ? props.movie.original_title : props.movie.original_name}
         </Card.Text>
       </NavLink>

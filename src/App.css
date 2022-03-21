@@ -40,3 +40,13 @@
 .font-link {
   font-family: 'Fredoka', serif;
 }
+
+.content-container {
+  min-height: calc(100vh - 60px);
+}
+
+.footer--pin {
+  position: relative;
+  left: 0;
+  bottom: 0;
+}

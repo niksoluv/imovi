@@ -32,10 +32,16 @@ export const mapCreditsTable = async (actor) => {
   let response = await axios.get(`${variables.DEFAULT_URL}person/${actor.id}/movie_credits?api_key=${variables.API_KEY}`)
   response.data.cast.sort(compare)
   const table = response.data.cast.map(el => {
-    const date = new Date(el.release_date ? el.release_date : el.first_air_date)
+    let date = ""
+    if (el.release_date !== "") {
+      date = new Date(el.release_date ? el.release_date : el.first_air_date)
+      date = date.getFullYear()
+    }
+    else
+      date = "----"
     return (
       <tr>
-        <td>{date.getFullYear()}</td>
+        <td>{date}</td>
         <td><NavLink to={{
           pathname: '/details'
         }}

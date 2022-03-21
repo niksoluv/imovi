@@ -3,6 +3,7 @@ import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 import { NavLink, useLocation } from 'react-router-dom'
 import { getMovieCast, getMovieDetails } from '../../storeAsyncActions/movies'
+import { largeImageStyle, notFoundUrl } from '../../variables'
 import CastCard from './castCard/CastCard'
 import FavButton from './favButton/FavButton'
 import VideoModal from './modal/VideoModal'
@@ -48,7 +49,11 @@ const Details = (props) => {
       />
       <Row>
         <Col lg={6} xs={'auto'} width={50}>
-          <Image fluid={true} src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`} rounded />
+          {movieData.backdrop_path === undefined || movieData.backdrop_path === null ?
+            <Image style={largeImageStyle} fluid={true} src={notFoundUrl.movieLargePoster} rounded />
+            :
+            <Image fluid={true} src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`} rounded />
+          }
         </Col>
         <Col>
           <Row height={50}>
