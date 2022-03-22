@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { getMovieCast, getMovieDetails } from '../../storeAsyncActions/movies'
 import { largeImageStyle, notFoundUrl } from '../../variables'
 import CastCard from './castCard/CastCard'
@@ -10,22 +10,24 @@ import VideoModal from './modal/VideoModal'
 
 const Details = (props) => {
 
+  const params = useParams();
+  const movieId = params.id
+  const mediaType = params.type
+
   const [movieData, setMovieData] = useState({})
   const [cast, setCast] = useState([])
   const location = useLocation()
   const [modalShow, setModalShow] = useState(false);
 
-  const movie = location.state.movie
-
   useEffect(() => {
-    getMovieDetails(movie).then(res => {
+    getMovieDetails(movieId, mediaType).then(res => {
       console.log(res)
       setMovieData(res)
     })
   }, [props])
 
   useEffect(() => {
-    getMovieCast(movie).then(res => {
+    getMovieCast(movieId, mediaType).then(res => {
       console.log(res)
       setCast(res)
     })
@@ -39,7 +41,7 @@ const Details = (props) => {
       style={{ color: 'white !important' }}
       to={{ pathname: el.name }}>{el.name}{index === movieData.genres.length - 1 ? '' : ', '}</NavLink>
   })
-  
+
   return (
     <Container className=' p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
       <VideoModal
