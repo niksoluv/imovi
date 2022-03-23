@@ -92,3 +92,18 @@ export const getFavourites = async () => {
 
   return result
 }
+
+export const addToHistory = async (movie) => {
+  const res = await axios.post(`${variables.API_URL}api/UserHistory/add`,
+    {
+      movieId: `${movie.id}`,
+      mediaType: movie.number_of_seasons !== undefined ? 'tv' : 'movie'
+    },
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+      }
+    })
+  localStorage.setItem('userToken', res.data.access_token)
+  return res.data
+}

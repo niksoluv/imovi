@@ -27,7 +27,7 @@ const MovieCard = (props) => {
 
   return (
     <Card key={props.movie.id}
-      className={'overflow-hidden card border-secondary m-1 text-white'} style={{ width: '10rem', border: 'none' }}>
+      className={'overflow-hidden card border-secondary mt-1 text-white'} style={{ width: '10rem', border: 'none' }}>
       <NavLink to={{
         pathname: `/details/${props.movie.id}/${type}`
       }}

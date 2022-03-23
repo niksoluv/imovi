@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
+import { addToFavourites, addToHistory } from '../../storeAsyncActions/account'
 import { getMovieCast, getMovieDetails } from '../../storeAsyncActions/movies'
 import { largeImageStyle, notFoundUrl } from '../../variables'
 import CastCard from './castCard/CastCard'
@@ -23,6 +24,7 @@ const Details = (props) => {
     getMovieDetails(movieId, mediaType).then(res => {
       console.log(res)
       setMovieData(res)
+      addToHistory(res)
     })
   }, [props])
 
