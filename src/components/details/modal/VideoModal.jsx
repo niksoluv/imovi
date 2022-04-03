@@ -22,7 +22,6 @@ const VideoModal = (props) => {
     getVideos(movieData).then(res => {
       setVideos(res.results)
       setChoice(res.results[0])
-      console.log(res)
     })
   }, [props])
 
@@ -44,7 +43,6 @@ const VideoModal = (props) => {
             <Dropdown.Menu variant="dark">
               {videos?.map(el => {
                 return <Dropdown.Item key={el.id} onClick={() => {
-                  console.log('fff')
                   setChoice(el)
                 }}>{el.name}</Dropdown.Item>
               })}

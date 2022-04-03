@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
-import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { addToFavourites, addToHistory } from '../../storeAsyncActions/account'
+import { NavLink, useParams } from 'react-router-dom'
 import { getMovieCast, getMovieDetails } from '../../storeAsyncActions/movies'
 import { largeImageStyle, notFoundUrl } from '../../variables'
 import CastCard from './castCard/CastCard'
@@ -17,25 +16,19 @@ const Details = (props) => {
 
   const [movieData, setMovieData] = useState({})
   const [cast, setCast] = useState([])
-  const location = useLocation()
   const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     getMovieDetails(movieId, mediaType).then(res => {
-      console.log(res)
       setMovieData(res)
-      addToHistory(res)
     })
   }, [props])
 
   useEffect(() => {
     getMovieCast(movieId, mediaType).then(res => {
-      console.log(res)
       setCast(res)
     })
   }, [props])
-
-  console.log(movieData)
 
   const date = new Date(movieData.release_date ? movieData.release_date : movieData.first_air_date)
   const genres = movieData.genres?.map((el, index) => {

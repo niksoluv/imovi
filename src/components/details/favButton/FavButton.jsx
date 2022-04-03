@@ -21,8 +21,12 @@ const FavButton = (props) => {
   useEffect(() => {
     if (Object.keys(userData).length !== 0) {
       isMovieInFavourites(props?.state?.id).then(res => {
+        debugger
         if (userData === undefined) {
           setCaption(captions.login)
+        }
+        else if (res === undefined) {
+          setCaption(captions.loading)
         }
         else {
           setCaption(res === true ? captions.remove : captions.add)
@@ -35,23 +39,27 @@ const FavButton = (props) => {
   }, [props, userData])
 
   const clickHandler = () => {
-    switch (caption) {
-      case captions.add: {
-        addToFavourites(props.state).then(res => {
-          if (res !== null)
-            setCaption(captions.remove)
-        })
-        break
-      }
-      case captions.remove: {
-        removeFromFavourites(props.state.id).then(res => {
-          if (res !== null)
-            setCaption(captions.add)
-        })
-        break
-      }
-      default: {
-        setCaption(captions.add)
+    if (userData.id !== undefined) {
+      switch (caption) {
+        case captions.add: {
+          setCaption(captions.loading)
+          addToFavourites(props.state).then(res => {
+            if (res !== null)
+              setCaption(captions.remove)
+          })
+          break
+        }
+        case captions.remove: {
+          setCaption(captions.loading)
+          removeFromFavourites(props.state.id).then(res => {
+            if (res !== null)
+              setCaption(captions.add)
+          })
+          break
+        }
+        default: {
+          setCaption(captions.loading)
+        }
       }
     }
   }

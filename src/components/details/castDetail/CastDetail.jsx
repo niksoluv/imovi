@@ -20,12 +20,10 @@ const CastDetail = (props) => {
 
   useEffect(() => {
     getActorData(actor).then(res => {
-      console.log(res)
       setActorData(res)
       handleData(res)
     })
     getCombinedCredits(actor).then(res => {
-      console.log(res)
       const arr = res.map((el) => {
         return (
           <MovieCard movie={el} />

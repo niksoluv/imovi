@@ -8,7 +8,6 @@ const MovieCard = (props) => {
 
   useEffect(() => {
     handleType(props.movie)
-    console.log(props.movie, type)
   }, [props])
 
   const handleType = (movie) => {

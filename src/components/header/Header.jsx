@@ -30,7 +30,8 @@ const Header = () => {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('userToken')) {
+    if (localStorage.getItem('userToken') !== undefined) {
+      
       getUserData(localStorage.getItem('userToken')).then(res => {
         const payload = {
           userData: res

@@ -51,7 +51,6 @@ const DefaultPage = (props) => {
 		switch (props.mode) {
 			case 'default':
 				getTrending(period, trendingType).then(res => {
-					console.log(res)
 					const arr = res.results.map((el) => {
 						return (
 							<MovieCard movie={el} />
@@ -75,7 +74,6 @@ const DefaultPage = (props) => {
 
 	useEffect(() => {
 		getMovies(moviesType).then(res => {
-			console.log(res)
 			const arr = res.results.map((el) => {
 				return (
 					<MovieCard movie={el} />
@@ -87,7 +85,6 @@ const DefaultPage = (props) => {
 
 	useEffect(() => {
 		getPopular(popularType.split(' ')[1]).then(res => {
-			console.log(res)
 			const arr = res.results.map((el) => {
 				el.media_type = popularType.split(' ')[1]
 				return (
