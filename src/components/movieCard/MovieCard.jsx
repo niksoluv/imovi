@@ -24,6 +24,8 @@ const MovieCard = (props) => {
     }
   }
 
+  const date = new Date(props.movie.release_date ? props.movie.release_date : props.movie.first_air_date)
+
   return (
     <Card key={props.movie.id}
       className={'overflow-hidden card border-secondary mt-1 text-white'} style={{ width: '10rem', border: 'none' }}>
@@ -38,7 +40,7 @@ const MovieCard = (props) => {
           <Card.Img style={smallImageStyle} src={notFoundUrl.movieSmallPoster} />
         }
         <Card.Text className="mt-0.5 p-2 overflow-hidden" style={{ height: '60px' }} >
-          {props.movie.original_title ? props.movie.original_title : props.movie.original_name}
+          {props.movie.original_title ? props.movie.original_title : props.movie.original_name} {`(${date.getFullYear()})`}
         </Card.Text>
       </NavLink>
     </Card >

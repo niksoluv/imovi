@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 import { NavLink, useParams } from 'react-router-dom'
+import { addToHistory } from '../../storeAsyncActions/account'
 import { getMovieCast, getMovieDetails, getVideos } from '../../storeAsyncActions/movies'
 import { largeImageStyle, notFoundUrl } from '../../variables'
-import CastCard from './castCard/CastCard'
+import CastCard from './cast/castCard/CastCard'
 import FavButton from './favButton/FavButton'
 import VideoModal from './modal/VideoModal'
 
@@ -23,6 +24,7 @@ const Details = (props) => {
     if (movieId) {
       getMovieDetails(movieId, mediaType).then(res => {
         setMovieData(res)
+        addToHistory(res)
       })
     }
   }, [props])
@@ -85,7 +87,7 @@ const Details = (props) => {
               </Button>
               :
               <Button className="disabled" variant="danger" onClick={() => setModalShow(true)}>
-                Watch trailer
+                There are no trailers
               </Button>
             }
           </Row>

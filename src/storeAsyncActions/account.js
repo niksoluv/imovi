@@ -23,7 +23,6 @@ export const getUserData = async (token) => {
 }
 
 export const getToken = async (userData) => {
-
   const res = await axios.post(`${variables.API_URL}token`, userData)
   localStorage.setItem('userToken', res.data.access_token)
   return res.data
@@ -98,15 +97,13 @@ export const addToHistory = async (movie) => {
   const res = await axios.post(`${variables.API_URL}api/UserHistory/add`,
     {
       movieId: `${movie.id}`,
-      mediaType: movie.number_of_seasons !== undefined ? 'tv' : 'movie'
+      mediaType: defineMediatype(movie)
     },
     {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('userToken')}`
       }
     })
-
-  localStorage.setItem('userToken', res.data.access_token)
   return res.data
 }
 

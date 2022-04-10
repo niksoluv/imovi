@@ -1,8 +1,8 @@
 import React, { Component, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getDataAction } from "../../store/authReducer";
-import { getToken, getUserData, login } from "../../storeAsyncActions/account";
+import { getDataAction } from "../../../store/authReducer";
+import { getToken, getUserData, login } from "../../../storeAsyncActions/account";
 import { Navigate } from 'react-router';
 
 const Login = () => {

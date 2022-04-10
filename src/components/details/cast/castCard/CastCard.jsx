@@ -1,7 +1,7 @@
 import { Card, Image } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
-import { notFoundUrl, smallImageStyle } from "../../../variables";
+import { notFoundUrl, smallImageStyle } from "../../../../variables";
 
 const CastCard = (props) => {
 

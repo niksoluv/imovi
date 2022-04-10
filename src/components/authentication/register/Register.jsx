@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
-import { getToken, register, getUserData } from "../../storeAsyncActions/account"
+import { getToken, register, getUserData } from "../../../storeAsyncActions/account"
 import { Navigate } from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
-import { getDataAction } from './../../store/authReducer';
+import { getDataAction } from '../../../store/authReducer';
 
 const Register = () => {
 

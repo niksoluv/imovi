@@ -1,16 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import Login from './components/login/Login';
+import Login from './components/authentication/login/Login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import DefaultPage from './components/defaultPage/Default';
 import { Container } from 'react-bootstrap';
-import Register from './components/register/Register';
+import Register from './components/authentication/register/Register';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import Details from './components/details/Details';
 import SearchPage from './components/search/SearchPage';
 import FavouritesPage from './components/favourites/FavouritesPage';
-import CastDetail from './components/details/castDetail/CastDetail';
+import CastDetail from './components/details/cast/castDetail/CastDetail';
 
 
 function App() {

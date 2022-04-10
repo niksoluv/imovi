@@ -65,8 +65,8 @@ const FavButton = (props) => {
 
   return (
     <Button onClick={clickHandler}
-      className={userData.id !== undefined ? 'bg-info mt-1' : 'bg-secondary mt-1'}
-      variant={userData.id !== undefined ? '' : 'disabled'} >
+      className={userData?.id !== undefined ? 'bg-info mt-1' : 'bg-secondary mt-1'}
+      variant={userData?.id !== undefined ? '' : 'disabled'} >
       {caption}
     </Button>
   )

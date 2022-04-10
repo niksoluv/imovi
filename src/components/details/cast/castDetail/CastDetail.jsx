@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import { Col, Container, Image, Row, Table } from "react-bootstrap"
 import { ScrollMenu } from "react-horizontal-scrolling-menu"
 import { useLocation } from "react-router"
-import { getActorData, getCombinedCredits, mapCreditsTable } from "../../../storeAsyncActions/cast"
-import { notFoundUrl } from "../../../variables"
-import MovieCard from "../../movieCard/MovieCard"
+import { getActorData, getCombinedCredits, mapCreditsTable } from "../../../../storeAsyncActions/cast"
+import { notFoundUrl } from "../../../../variables"
+import MovieCard from "../../../movieCard/MovieCard"
 
 const CastDetail = (props) => {
 
