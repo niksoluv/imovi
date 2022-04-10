@@ -17,16 +17,29 @@ export const getCombinedCredits = async (actor) => {
   }
   let response = await axios.get(`${variables.DEFAULT_URL}person/${actor.id}/combined_credits?api_key=${variables.API_KEY}`)
   response.data.cast.sort(compare)
-  debugger
   return response.data.cast.slice(0, 10);
 }
 
 export const mapCreditsTable = async (actor) => {
   const compare = (a, b) => {
-    if (a.release_date ? a.release_date : a.first_air_date > b.release_date ? b.release_date : b.first_air_date)
-      return -1
-    if (a.release_date ? a.release_date : a.first_air_date < b.release_date ? b.release_date : b.first_air_date)
+    let firstReleaseDate = a.release_date ? a.release_date : a.first_air_date
+    let secondReleaseDate = b.release_date ? b.release_date : b.first_air_date
+    if (firstReleaseDate === undefined)
       return 1
+    else if (secondReleaseDate === undefined)
+      return -1
+    firstReleaseDate = firstReleaseDate.replaceAll("'", "")
+    secondReleaseDate = secondReleaseDate.replaceAll("'", "")
+
+    console.log(firstReleaseDate, secondReleaseDate)
+    if (firstReleaseDate > secondReleaseDate) {
+      console.log("first greater")
+      return -1
+    }
+    if (firstReleaseDate < secondReleaseDate) {
+      console.log("second greater")
+      return 1
+    }
     return 0
   }
 
