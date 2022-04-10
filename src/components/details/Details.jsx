@@ -8,6 +8,7 @@ import { largeImageStyle, notFoundUrl } from '../../variables'
 import CastCard from './cast/castCard/CastCard'
 import FavButton from './favButton/FavButton'
 import VideoModal from './modal/VideoModal'
+import TVData from './tvData/TVData'
 
 const Details = (props) => {
 
@@ -96,6 +97,13 @@ const Details = (props) => {
           </Row>
         </Col>
       </Row>
+      {mediaType === 'tv' ?
+        <Row >
+          <TVData state={movieData} />
+        </Row>
+        :
+        <></>
+      }
       Cast
       <Row >
         <ScrollMenu>

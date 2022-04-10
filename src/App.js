@@ -25,12 +25,18 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/search' element={<SearchPage mode='search' />} />
+
             <Route path='/details' element={<Details />}>
               <Route path=":id" element={<Details />} />
               <Route path=":id/:type" element={<Details />} />
             </Route>
+
             <Route path='/favourites' element={<FavouritesPage />} />
-            <Route path='/castDetail' element={<CastDetail />} />
+            
+            <Route path='/castDetail' element={<CastDetail />} >
+              <Route path=":id" element={<CastDetail />} />
+            </Route>
+
           </Routes>
         </Container>
       </div>

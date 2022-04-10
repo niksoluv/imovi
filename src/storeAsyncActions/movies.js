@@ -45,12 +45,14 @@ export const getMovieCast = async (movieId, mediaType) => {
 			res = await axios.get(`${variables.DEFAULT_URL}movie/${movieId}/credits?api_key=${variables.API_KEY}&language=en-US`)
 			break
 		case 'tv':
+			debugger
 			res = await axios.get(`${variables.DEFAULT_URL}tv/${movieId}/credits?api_key=${variables.API_KEY}&language=en-US`)
 			break
 		default:
 			res = await axios.get(`${variables.DEFAULT_URL}movie/${movieId}/credits?api_key=${variables.API_KEY}&language=en-US`)
 			break
 	}
+	debugger
 	return res.data.cast.length > 0 ? res.data.cast : res.data.crew
 }
 

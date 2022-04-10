@@ -3,12 +3,12 @@ import { NavLink } from "react-router-dom"
 import { variables } from "../variables"
 import { defineMediatype } from "./account"
 
-export const getActorData = async (actor) => {
-  let response = await axios.get(`${variables.DEFAULT_URL}person/${actor.id}?api_key=${variables.API_KEY}`)
+export const getActorData = async (actorId) => {
+  let response = await axios.get(`${variables.DEFAULT_URL}person/${actorId}?api_key=${variables.API_KEY}`)
   return response.data
 }
 
-export const getCombinedCredits = async (actor) => {
+export const getCombinedCredits = async (actorId) => {
   const compare = (a, b) => {
     if (a.vote_average > b.vote_average && a.vote_average < 10)
       return -1
@@ -16,12 +16,12 @@ export const getCombinedCredits = async (actor) => {
       return 1
     return 0
   }
-  let response = await axios.get(`${variables.DEFAULT_URL}person/${actor.id}/combined_credits?api_key=${variables.API_KEY}`)
+  let response = await axios.get(`${variables.DEFAULT_URL}person/${actorId}/combined_credits?api_key=${variables.API_KEY}`)
   response.data.cast.sort(compare)
   return response.data.cast.slice(0, 10);
 }
 
-export const mapCreditsTable = async (actor) => {
+export const mapCreditsTable = async (actorId) => {
   const compare = (a, b) => {
     let firstReleaseDate = a.release_date ? a.release_date : a.first_air_date
     let secondReleaseDate = b.release_date ? b.release_date : b.first_air_date
@@ -40,7 +40,7 @@ export const mapCreditsTable = async (actor) => {
     return 0
   }
 
-  let response = await axios.get(`${variables.DEFAULT_URL}person/${actor.id}/combined_credits?api_key=${variables.API_KEY}`)
+  let response = await axios.get(`${variables.DEFAULT_URL}person/${actorId}/combined_credits?api_key=${variables.API_KEY}`)
   response.data.cast.sort(compare)
   const table = response.data.cast.map(el => {
     let date = ""
@@ -51,7 +51,7 @@ export const mapCreditsTable = async (actor) => {
     else
       date = "----"
     return (
-      <tr>
+      <tr key={el.id}>
         <td>{date}</td>
         <td><NavLink to={{
           pathname: `/details/${el.id}/${defineMediatype(el)}`

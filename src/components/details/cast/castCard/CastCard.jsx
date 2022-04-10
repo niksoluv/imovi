@@ -1,6 +1,5 @@
 import { Card, Image } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
-import { useNavigate } from "react-router-dom";
 import { notFoundUrl, smallImageStyle } from "../../../../variables";
 
 const CastCard = (props) => {
@@ -10,7 +9,7 @@ const CastCard = (props) => {
     <Card key={actor.id}
       className={'overflow-hidden card border-secondary text-white'} style={{ width: '10rem', border: 'none' }}>
       <NavLink to={{
-        pathname: '/castDetail'
+        pathname: `/castDetail/${actor.id}`
       }}
         state={{ actor: actor }}
         style={{ textDecoration: 'none', color: 'grey' }}>

@@ -1,28 +1,10 @@
 import { useEffect, useState } from "react"
 import { Card } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
+import { defineMediatype } from "../../storeAsyncActions/account"
 import { smallImageStyle, notFoundUrl } from "../../variables"
 
 const MovieCard = (props) => {
-  const [type, setType] = useState('')
-
-  useEffect(() => {
-    handleType(props.movie)
-  }, [props])
-
-  const handleType = (movie) => {
-    switch (movie.media_type) {
-      case 'movie':
-        setType('movie')
-        break
-      case 'tv':
-        setType('tv')
-        break
-      default:
-        setType('movie')
-        break
-    }
-  }
 
   const date = new Date(props.movie.release_date ? props.movie.release_date : props.movie.first_air_date)
 
@@ -30,7 +12,7 @@ const MovieCard = (props) => {
     <Card key={props.movie.id}
       className={'overflow-hidden card border-secondary mt-1 text-white'} style={{ width: '10rem', border: 'none' }}>
       <NavLink to={{
-        pathname: `/details/${props.movie.id}/${type}`
+        pathname: `/details/${props.movie.id}/${defineMediatype(props.movie)}`
       }}
         state={{ movie: props.movie }}
         style={{ textDecoration: 'none', color: 'grey' }}>

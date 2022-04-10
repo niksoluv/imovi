@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react"
 import { Col, Container, Image, Row, Table } from "react-bootstrap"
 import { ScrollMenu } from "react-horizontal-scrolling-menu"
-import { useLocation } from "react-router"
+import { useLocation, useParams } from "react-router"
 import { getActorData, getCombinedCredits, mapCreditsTable } from "../../../../storeAsyncActions/cast"
 import { notFoundUrl } from "../../../../variables"
 import MovieCard from "../../../movieCard/MovieCard"
 
 const CastDetail = (props) => {
+
+  const params = useParams();
+  const actorId = params.id
 
   const [actorData, setActorData] = useState({})
   const [biography, setBiography] = useState("")
@@ -16,22 +19,20 @@ const CastDetail = (props) => {
 
   const location = useLocation()
 
-  const actor = location.state.actor
-
   useEffect(() => {
-    getActorData(actor).then(res => {
+    getActorData(actorId).then(res => {
       setActorData(res)
       handleData(res)
     })
-    getCombinedCredits(actor).then(res => {
+    getCombinedCredits(actorId).then(res => {
       const arr = res.map((el) => {
         return (
-          <MovieCard movie={el} />
+          <MovieCard movie={el} key={el.id} />
         )
       })
       setCredits(arr)
     })
-    mapCreditsTable(actor).then(res => {
+    mapCreditsTable(actorId).then(res => {
       setTable(res)
     })
   }, [props])
@@ -43,12 +44,12 @@ const CastDetail = (props) => {
     else {
       if (actor.biography.length > 800) {
         const arr = actor.biography.slice(0, 800).split("\n")
-        const block = arr.map(el => <p>{el}</p>)
+        const block = arr.map((el, index) => <p key={index}>{el}</p>)
         setBiography(block)
       }
       else {
         const arr = actor.biography.split("\n")
-        const block = arr.map(el => <p>{el}</p>)
+        const block = arr.map((el, index) => <p key={index}>{el}</p>)
         setBiography(block)
       }
     }
