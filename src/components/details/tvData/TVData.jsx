@@ -8,9 +8,11 @@ const TVData = (props) => {
 
   let seasons = []
   let lastSeason = {}
+  let date = undefined
   if (data.seasons?.length > 0) {
     seasons = data.seasons
     lastSeason = seasons[seasons.length - 1]
+    date = new Date(lastSeason?.air_date)
   }
 
   return (
@@ -23,6 +25,7 @@ const TVData = (props) => {
           </Col>
           <Col md='8'>
             <Card.Text>{lastSeason?.name}</Card.Text>
+            <Card.Text>{date?.getFullYear()} {lastSeason.episode_count} episodes</Card.Text>
             <Card.Text>{lastSeason?.overview}</Card.Text>
           </Col>
         </Row>
