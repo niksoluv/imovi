@@ -1,13 +1,10 @@
 import { Container, Row } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
-import { getFavourites } from "../../storeAsyncActions/account"
+import { defineMediatype, getFavourites } from "../../storeAsyncActions/account"
 import MovieCard from "../movieCard/MovieCard"
 
-
 const FavouritesPage = (props) => {
-
-  const dispatch = useDispatch()
 
   const [movies, setMovies] = useState([])
 
@@ -18,6 +15,7 @@ const FavouritesPage = (props) => {
   useEffect(() => {
     getFavourites().then(res => {
       const arr = res.map((el) => {
+        el.data.media_type = defineMediatype(el.data)
         return (
           <MovieCard movie={el.data} />
         )

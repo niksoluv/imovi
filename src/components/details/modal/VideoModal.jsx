@@ -19,10 +19,12 @@ const VideoModal = (props) => {
   };
 
   useEffect(() => {
-    getVideos(movieData).then(res => {
-      setVideos(res.results)
-      setChoice(res.results[0])
-    })
+    if (movieData.id !== undefined) {
+      getVideos(movieData).then(res => {
+        setVideos(res.results)
+        setChoice(res.results[0])
+      })
+    }
   }, [props])
 
   return (

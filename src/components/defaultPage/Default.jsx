@@ -53,7 +53,7 @@ const DefaultPage = (props) => {
 				getTrending(period, trendingType).then(res => {
 					const arr = res.results.map((el) => {
 						return (
-							<MovieCard movie={el} />
+							<MovieCard movie={el} key={`${el.id}_trending`}/>
 						)
 					})
 					setTrending(arr)
@@ -62,7 +62,7 @@ const DefaultPage = (props) => {
 			case 'search':
 				const arr = moviesData?.results?.map((el) => {
 					return (
-						<MovieCard movie={el} />
+						<MovieCard movie={el} key={`${el.id}_search`} />
 					)
 				})
 				setTrending(arr)
@@ -76,7 +76,7 @@ const DefaultPage = (props) => {
 		getMovies(moviesType).then(res => {
 			const arr = res.results.map((el) => {
 				return (
-					<MovieCard movie={el} />
+					<MovieCard movie={el} key={`${el.id}_movies`} />
 				)
 			})
 			setMovies(arr)
@@ -88,7 +88,7 @@ const DefaultPage = (props) => {
 			const arr = res.results.map((el) => {
 				el.media_type = popularType.split(' ')[1]
 				return (
-					<MovieCard movie={el} />
+					<MovieCard movie={el} key={`${el.id}_popular`} />
 				)
 			})
 			setPopular(arr)

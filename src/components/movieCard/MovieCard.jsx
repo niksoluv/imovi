@@ -33,9 +33,9 @@ const MovieCard = (props) => {
         state={{ movie: props.movie }}
         style={{ textDecoration: 'none', color: 'grey' }}>
         {props.movie.poster_path ?
-          <Card.Img style={smallImageStyle} fluid src={`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`} />
+          <Card.Img style={smallImageStyle} src={`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`} />
           :
-          <Card.Img style={smallImageStyle} fluid src={notFoundUrl.movieSmallPoster} />
+          <Card.Img style={smallImageStyle} src={notFoundUrl.movieSmallPoster} />
         }
         <Card.Text className="mt-0.5 p-2 overflow-hidden" style={{ height: '60px' }} >
           {props.movie.original_title ? props.movie.original_title : props.movie.original_name}

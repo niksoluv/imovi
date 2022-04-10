@@ -19,11 +19,11 @@ const CastCard = (props) => {
           :
           <Card.Img style={smallImageStyle} src={`https://image.tmdb.org/t/p/original${actor.profile_path}`} />
         }
+        <h6 className="mt-0.5">{actor.character}</h6>
         <Card.Text className="mt-0.5" >
-          <h6>{actor.character}</h6>
         </Card.Text>
+        <h6 className="mt-0.5">{actor.name}</h6>
         <Card.Text className="mt-0.5" >
-          <h6>{actor.name}</h6>
         </Card.Text>
       </NavLink>
     </Card >

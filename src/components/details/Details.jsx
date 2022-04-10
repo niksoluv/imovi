@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 import { NavLink, useParams } from 'react-router-dom'
-import { getMovieCast, getMovieDetails } from '../../storeAsyncActions/movies'
+import { getMovieCast, getMovieDetails, getVideos } from '../../storeAsyncActions/movies'
 import { largeImageStyle, notFoundUrl } from '../../variables'
 import CastCard from './castCard/CastCard'
 import FavButton from './favButton/FavButton'
@@ -16,13 +16,24 @@ const Details = (props) => {
 
   const [movieData, setMovieData] = useState({})
   const [cast, setCast] = useState([])
-  const [modalShow, setModalShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false)
+  const [videos, setVideos] = useState([])
 
   useEffect(() => {
-    getMovieDetails(movieId, mediaType).then(res => {
-      setMovieData(res)
-    })
+    if (movieId) {
+      getMovieDetails(movieId, mediaType).then(res => {
+        setMovieData(res)
+      })
+    }
   }, [props])
+
+  useEffect(() => {
+    if (movieData.id !== undefined) {
+      getVideos(movieData).then(res => {
+        setVideos(res.results)
+      })
+    }
+  }, [movieData])
 
   useEffect(() => {
     getMovieCast(movieId, mediaType).then(res => {
@@ -32,7 +43,7 @@ const Details = (props) => {
 
   const date = new Date(movieData.release_date ? movieData.release_date : movieData.first_air_date)
   const genres = movieData.genres?.map((el, index) => {
-    return <NavLink
+    return <NavLink key={index}
       style={{ color: 'white !important' }}
       to={{ pathname: el.name }}>{el.name}{index === movieData.genres.length - 1 ? '' : ', '}</NavLink>
   })
@@ -68,9 +79,15 @@ const Details = (props) => {
           </Row>
           {movieData.overview}
           <Row xs="auto">
-            <Button variant="danger" onClick={() => setModalShow(true)}>
-              Watch trailer
-            </Button>
+            {videos.length > 0 ?
+              <Button variant="danger" onClick={() => setModalShow(true)}>
+                Watch trailer
+              </Button>
+              :
+              <Button className="disabled" variant="danger" onClick={() => setModalShow(true)}>
+                Watch trailer
+              </Button>
+            }
           </Row>
           <Row xs="auto">
             <FavButton state={movieData} />
@@ -81,7 +98,7 @@ const Details = (props) => {
       <Row >
         <ScrollMenu>
           {cast.map(el => {
-            return <CastCard state={el} />
+            return <CastCard state={el} key={el.id} />
           })}
         </ScrollMenu>
       </Row>

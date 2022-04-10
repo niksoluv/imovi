@@ -52,7 +52,7 @@ const CastDetail = (props) => {
         setBiography(block)
       }
     }
-
+    console.log(actor.also_known_as)
     setAka(actor.also_known_as[0])
   }
 
@@ -71,7 +71,7 @@ const CastDetail = (props) => {
             <h1>
               {`${actorData.name} (${aka})`}
             </h1>
-            <p className="font-italic">{biography}</p>
+            <div className="font-italic">{biography}</div>
           </Row >
           Known for
           <Row className="fixed-row-bottom">

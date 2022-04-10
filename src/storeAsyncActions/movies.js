@@ -1,5 +1,6 @@
 import axios from "axios"
 import { variables } from "../variables"
+import { defineMediatype } from "./account"
 
 export const getTrending = async (period, type) => {
 	let response = await axios.get(`${variables.DEFAULT_URL}trending/${type}/${period}?api_key=${variables.API_KEY}`)
@@ -53,17 +54,19 @@ export const getMovieCast = async (movieId, mediaType) => {
 	return res.data.cast.length > 0 ? res.data.cast : res.data.crew
 }
 
-export const getVideos = async (movieId, mediaType) => {
+export const getVideos = async (media) => {
+
+	const mediaType = defineMediatype(media)
 	let res = {}
 	switch (mediaType) {
 		case 'movie':
-			res = await axios.get(`${variables.DEFAULT_URL}movie/${movieId}/videos?api_key=${variables.API_KEY}&language=en-US`)
+			res = await axios.get(`${variables.DEFAULT_URL}movie/${media.id}/videos?api_key=${variables.API_KEY}&language=en-US`)
 			break
 		case 'tv':
-			res = await axios.get(`${variables.DEFAULT_URL}tv/${movieId}/videos?api_key=${variables.API_KEY}&language=en-US`)
+			res = await axios.get(`${variables.DEFAULT_URL}tv/${media.id}/videos?api_key=${variables.API_KEY}&language=en-US`)
 			break
 		default:
-			res = await axios.get(`${variables.DEFAULT_URL}movie/${movieId}/videos?api_key=${variables.API_KEY}&language=en-US`)
+			res = await axios.get(`${variables.DEFAULT_URL}movie/${media.id}/videos?api_key=${variables.API_KEY}&language=en-US`)
 			break
 	}
 	return res.data

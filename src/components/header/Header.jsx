@@ -59,16 +59,16 @@ const Header = () => {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link>
+            <Nav.Item className="p-1">
               <NavLink onClick={() => {
                 const payload = { movies: [] }
                 dispatch(getMoviesAction(payload))
               }} to={{ pathname: '/trending' }} style={{ textDecoration: 'none', color: 'grey' }}>Trending</NavLink>
-            </Nav.Link>
+            </Nav.Item>
             {userData?.id ?
-              <Nav.Link>
+              <Nav.Item className="p-1">
                 <NavLink to={{ pathname: '/favourites' }} style={{ textDecoration: 'none', color: 'grey' }}>Favourites</NavLink>
-              </Nav.Link>
+              </Nav.Item>
               :
               <></>
             }
