@@ -65,9 +65,14 @@ const Header = () => {
               }} to={{ pathname: '/trending' }} style={{ textDecoration: 'none', color: 'grey' }}>Trending</NavLink>
             </Nav.Item>
             {userData?.id ?
-              <Nav.Item className="p-1">
-                <NavLink to={{ pathname: '/favourites' }} style={{ textDecoration: 'none', color: 'grey' }}>Favourites</NavLink>
-              </Nav.Item>
+              <>
+                <Nav.Item className="p-1">
+                  <NavLink to={{ pathname: '/favourites' }} style={{ textDecoration: 'none', color: 'grey' }}>Favourites</NavLink>
+                </Nav.Item>
+                <Nav.Item className="p-1">
+                  <NavLink to={{ pathname: '/history' }} style={{ textDecoration: 'none', color: 'grey' }}>History</NavLink>
+                </Nav.Item>
+              </>
               :
               <></>
             }

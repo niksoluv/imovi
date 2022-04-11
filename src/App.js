@@ -11,6 +11,7 @@ import Details from './components/details/Details';
 import SearchPage from './components/search/SearchPage';
 import FavouritesPage from './components/favourites/FavouritesPage';
 import CastDetail from './components/details/cast/castDetail/CastDetail';
+import HistoryPage from './components/history/HistoryPage';
 
 
 function App() {
@@ -32,11 +33,12 @@ function App() {
             </Route>
 
             <Route path='/favourites' element={<FavouritesPage />} />
-            
+
             <Route path='/castDetail' element={<CastDetail />} >
               <Route path=":id" element={<CastDetail />} />
             </Route>
 
+            <Route path='/history' element={<HistoryPage />} />
           </Routes>
         </Container>
       </div>

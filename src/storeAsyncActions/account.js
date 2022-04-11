@@ -93,6 +93,22 @@ export const getFavourites = async () => {
   return result
 }
 
+export const getHistory = async () => {
+  let res = await axios.get(`${variables.API_URL}api/UserHistory`,
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+      }
+    })
+  const reqArr = res.data.map(el => {
+    return axios.get(`${variables.DEFAULT_URL}${el.movie.mediaType}/${el.movie.movieId}?api_key=${variables.API_KEY}&language=en-US`)
+  })
+
+  const result = await axios.all(reqArr)
+
+  return result
+}
+
 export const addToHistory = async (movie) => {
   const res = await axios.post(`${variables.API_URL}api/UserHistory/add`,
     {
