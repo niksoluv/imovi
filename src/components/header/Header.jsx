@@ -41,7 +41,7 @@ const Header = () => {
   }, [userData?.id])
 
   return (
-    <Navbar collapseOnSelect bg="light" expand="lg">
+    <Navbar collapseOnSelect bg="dark" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/trending">
           <ReactSVG

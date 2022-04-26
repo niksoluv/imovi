@@ -52,67 +52,95 @@ const Details = (props) => {
   })
 
   return (
-    <Container className=' p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
-      <VideoModal
-        state={movieData}
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
-      <Row>
-        <Col lg={6} xs={'auto'} width={50}>
-          {movieData.backdrop_path === undefined || movieData.backdrop_path === null ?
-            <Image style={largeImageStyle} fluid={true} src={notFoundUrl.movieLargePoster} rounded />
-            :
-            <Image fluid={true} src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`} rounded />
+    <div className="containers" >
+      <style>
+        {`.containers {
+            position: relative;
+            color: rgb(48, 45, 45);
+            /*Note, you can change the color to your choice depending on your 
+            image and what color blends with it*/
+            color:white;
           }
-        </Col>
-        <Col>
-          <Row height={50}>
-            <h1>
-              {movieData.title ? movieData.title : movieData.original_name} {`(${date.getFullYear()})`}
-            </h1>
-            <p className="font-italic">{movieData.tagline}</p>
-          </Row>
-          <Row xs="auto">
-            <Col><Badge bg="dark">{genres}</Badge></Col>
-            <Col><Badge bg="dark">{movieData?.runtime ?
-              movieData?.runtime
+
+          .containers::after {
+            content: "";
+            opacity: 0.8;
+            background: linear-gradient( rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.95) ), url("https://image.tmdb.org/t/p/original${movieData.backdrop_path}") no-repeat fixed top;
+            //background-blend-mode: luminosity;
+            /* also change the blend mode to what suits you, from darken, to other 
+            many options as you deem fit*/
+            background-size: cover;
+            top: 0;
+            left: 0;
+            right: 0;
+            //filter: blur(4px);
+            bottom: 0;
+            position: absolute;
+            z-index: -1;
+            height: 500px;
+          }`}
+      </style>
+      <Container className=' p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
+        <VideoModal
+          state={movieData}
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+        />
+        <Row>
+          <Col lg={2} xs={'auto'} width={50}>
+            {movieData.backdrop_path === undefined || movieData.backdrop_path === null ?
+              <Image style={largeImageStyle} fluid={true} src={notFoundUrl.movieLargePoster} rounded />
               :
-              movieData?.episode_run_time ? movieData?.episode_run_time[0] : ''}m</Badge></Col>
-          </Row>
-          {movieData.overview}
-          <Row xs="auto">
-            {videos.length > 0 ?
-              <Button variant="danger" onClick={() => setModalShow(true)}>
-                Watch trailer
-              </Button>
-              :
-              <Button className="disabled" variant="danger" onClick={() => setModalShow(true)}>
-                There are no trailers
-              </Button>
+              <Image fluid={true} src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`} rounded />
             }
-          </Row>
-          <Row xs="auto">
-            <FavButton state={movieData} />
-          </Row>
-        </Col>
-      </Row>
-      {mediaType === 'tv' ?
-        <Row >
-          <TVData state={movieData} />
+          </Col>
+          <Col>
+            <Row height={50}>
+              <h1>
+                {movieData.title ? movieData.title : movieData.original_name} {`(${date.getFullYear()})`}
+              </h1>
+              <p className="font-italic">{movieData.tagline}</p>
+            </Row>
+            <Row xs="auto">
+              <Col><Badge bg="dark">{genres}</Badge></Col>
+              <Col><Badge bg="dark">{movieData?.runtime ?
+                movieData?.runtime
+                :
+                movieData?.episode_run_time ? movieData?.episode_run_time[0] : ''}m</Badge></Col>
+            </Row>
+            {movieData.overview}
+            <Row xs="auto">
+              {videos.length > 0 ?
+                <Button variant="danger" onClick={() => setModalShow(true)}>
+                  Watch trailer
+                </Button>
+                :
+                <Button className="disabled" variant="danger" onClick={() => setModalShow(true)}>
+                  There are no trailers
+                </Button>
+              }
+            </Row>
+            <Row xs="auto">
+              <FavButton state={movieData} />
+            </Row>
+          </Col>
         </Row>
-        :
-        <></>
-      }
-      Cast
-      <Row >
-        <ScrollMenu>
-          {cast.map(el => {
-            return <CastCard state={el} key={el.id} />
-          })}
-        </ScrollMenu>
-      </Row>
-    </Container >
+        {mediaType === 'tv' ?
+          <Row >
+            <TVData state={movieData} />
+          </Row>
+          :
+          <></>
+        }
+        Cast
+        <Row >
+          <ScrollMenu>
+            {cast.map(el => {
+              return <CastCard state={el} key={el.id} />
+            })}
+          </ScrollMenu>
+        </Row>
+      </Container ></div>
   )
 }
 

@@ -112,7 +112,7 @@ const DefaultPage = (props) => {
 	}
 
 	return (
-		<Container fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
+		<Container className="bg-dark" fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
 			Trending
 			<Row xs="auto">
 				<ButtonGroup>

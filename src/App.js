@@ -19,7 +19,7 @@ function App() {
     <BrowserRouter>
       <div className="content-container">
         <Header className="font-link content-container" />
-        <Container fluid className="font-link" style={{ paddingBottom: '60px' }}>
+        <Container fluid className="font-link p-0">
           <Routes>
             <Route path='/' element={<DefaultPage mode='default' />} />
             <Route path='/trending' element={<DefaultPage mode='default' />} />
