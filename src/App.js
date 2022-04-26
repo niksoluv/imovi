@@ -12,12 +12,17 @@ import SearchPage from './components/search/SearchPage';
 import FavouritesPage from './components/favourites/FavouritesPage';
 import CastDetail from './components/details/cast/castDetail/CastDetail';
 import HistoryPage from './components/history/HistoryPage';
-
+import { useSelector } from 'react-redux';
 
 function App() {
+
+  const background = useSelector((state) => {
+		return state.background.backgroundColor
+	})
+
   return (
     <BrowserRouter>
-      <div className="content-container">
+      <div className={`content-container ${background}`}>
         <Header className="font-link content-container" />
         <Container fluid className="font-link p-0">
           <Routes>

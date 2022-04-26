@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
+import { useDispatch } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
+import { setColorAction } from '../../store/background'
 import { addToHistory } from '../../storeAsyncActions/account'
 import { getMovieCast, getMovieDetails, getVideos } from '../../storeAsyncActions/movies'
 import { largeImageStyle, notFoundUrl } from '../../variables'
@@ -12,6 +14,18 @@ import TVData from './tvData/TVData'
 
 const Details = (props) => {
 
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const payload = { color: "" }
+    dispatch(setColorAction(payload))
+  }, [])
+
+  useEffect(() => () => {
+    const payload = { color: "bg-dark" }
+    dispatch(setColorAction(payload))
+  }, [])
+  
   const params = useParams();
   const movieId = params.id
   const mediaType = params.type
