@@ -56,11 +56,11 @@ export const mapCreditsTable = async (actorId) => {
     return (
       <tr key={el.id}>
         <td>{date}</td>
-        <td><NavLink to={{
+        <td style={{ color: 'white' }}><NavLink to={{
           pathname: `/details/${el.id}/${defineMediatype(el)}`
         }}
           state={{ movie: el }}
-          style={{ textDecoration: 'none', color: 'grey' }}>{el.media_type === 'movie' ? el.original_title : el.name}
+          style={{ textDecoration: 'none', color: 'lightgrey' }}>{el.media_type === 'movie' ? el.original_title : el.name}
         </NavLink> as {el.character}</td>
       </tr>)
   })
