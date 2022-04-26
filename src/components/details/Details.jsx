@@ -14,18 +14,6 @@ import TVData from './tvData/TVData'
 
 const Details = (props) => {
 
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    const payload = { color: "" }
-    dispatch(setColorAction(payload))
-  }, [])
-
-  useEffect(() => () => {
-    const payload = { color: "bg-dark" }
-    dispatch(setColorAction(payload))
-  }, [])
-  
   const params = useParams();
   const movieId = params.id
   const mediaType = params.type
@@ -66,11 +54,11 @@ const Details = (props) => {
   })
 
   return (
-    <div className="containers" >
+    <div className="containers bg-dark" style={{ zIndex: 1 }} >
       <style>
         {`.containers {
             position: relative;
-            color: rgb(48, 45, 45);
+            //color: rgb(48, 45, 45);
             /*Note, you can change the color to your choice depending on your 
             image and what color blends with it*/
             color:white;
@@ -78,8 +66,8 @@ const Details = (props) => {
 
           .containers::after {
             content: "";
-            opacity: 0.8;
-            background: linear-gradient( rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.95) ), url("https://image.tmdb.org/t/p/original${movieData.backdrop_path}") no-repeat fixed top;
+            background-color: #cccccc;
+            background: linear-gradient( rgba(222, 222, 222, 0.5), rgba(0, 0, 0, 1) ), url("https://image.tmdb.org/t/p/original${movieData.backdrop_path}") no-repeat fixed top;
             //background-blend-mode: luminosity;
             /* also change the blend mode to what suits you, from darken, to other 
             many options as you deem fit*/
@@ -91,7 +79,7 @@ const Details = (props) => {
             bottom: 0;
             position: absolute;
             z-index: -1;
-            height: 500px;
+            height: 100%;
           }`}
       </style>
       <Container className=' p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
@@ -101,19 +89,19 @@ const Details = (props) => {
           onHide={() => setModalShow(false)}
         />
         <Row className="g-0">
-          <Col lg={2}  width={50}>
+          <Col lg={2}  >
             {movieData.backdrop_path === undefined || movieData.backdrop_path === null ?
               <Image style={largeImageStyle} fluid={true} src={notFoundUrl.movieLargePoster} rounded />
               :
               <Image fluid={true} src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`} rounded />
             }
           </Col>
-          <Col lg={2}  width={50}>
-            <Row className="g-0" height={50}>
+          <Col className='m-2' lg={8}  >
+            <Row className="g-0"  >
               <h1>
                 {movieData.title ? movieData.title : movieData.original_name} {`(${date.getFullYear()})`}
               </h1>
-              <p className="font-italic">{movieData.tagline}</p>
+              <div className="font-italic">{movieData.tagline}</div>
             </Row>
             <Row className="g-0" xs="auto">
               <Col><Badge bg="dark">{genres}</Badge></Col>
@@ -154,7 +142,8 @@ const Details = (props) => {
             })}
           </ScrollMenu>
         </Row>
-      </Container ></div>
+      </Container >
+    </div>
   )
 }
 
