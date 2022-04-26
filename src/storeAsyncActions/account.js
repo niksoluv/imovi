@@ -4,11 +4,16 @@ import { variables } from "../variables"
 
 export const register = async (userData) => {
   userData.role = 'user'
-  const response = await axios.post(`${variables.API_URL}create`,
-    userData)
-  const data = response.data
-
-  return data
+  let response = {}
+  try {
+    response = await axios.post(`${variables.API_URL}create`,
+      userData)
+    return response.data
+  }
+  catch (e) {
+    debugger
+    return response.data
+  }
 }
 
 export const getUserData = async (token) => {
