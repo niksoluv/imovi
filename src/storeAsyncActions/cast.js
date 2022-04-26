@@ -17,8 +17,9 @@ export const getCombinedCredits = async (actorId) => {
     return 0
   }
   let response = await axios.get(`${variables.DEFAULT_URL}person/${actorId}/combined_credits?api_key=${variables.API_KEY}`)
-  response.data.cast.sort(compare)
-  return response.data.cast.slice(0, 10);
+  let credits = response.data.cast.filter(credit => credit.adult !== true)
+  credits.sort(compare)
+  return credits.slice(0, 10);
 }
 
 export const mapCreditsTable = async (actorId) => {
@@ -41,8 +42,10 @@ export const mapCreditsTable = async (actorId) => {
   }
 
   let response = await axios.get(`${variables.DEFAULT_URL}person/${actorId}/combined_credits?api_key=${variables.API_KEY}`)
-  response.data.cast.sort(compare)
-  const table = response.data.cast.map(el => {
+
+  let credits = response.data.cast.filter(credit => credit.adult !== true)
+  credits.sort(compare)
+  const table = credits.map(el => {
     let date = ""
     if (el.release_date !== "") {
       date = new Date(el.release_date ? el.release_date : el.first_air_date)
