@@ -58,9 +58,9 @@ const CastDetail = (props) => {
   }
 
   return (
-    <Container className=' p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10}  >
-      <Row>
-        <Col xs lg={3} md={3} sm={1}>
+    <Container className='text-white p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10}  >
+      <Row className="g-0">
+        <Col xs lg={3} md={3} sm={1} className="p-2">
           {actorData.profile_path === undefined || actorData.profile_path == null ?
             <Image fluid={true} src={notFoundUrl.actor} rounded />
             :
@@ -68,14 +68,14 @@ const CastDetail = (props) => {
           }
         </Col>
         <Col xs lg={9} md={9}>
-          <Row >
-            <h1>
+          <Row className="g-0">
+            <h1 className="g-0">
               {`${actorData.name} (${aka})`}
             </h1>
             <div className="font-italic">{biography}</div>
           </Row >
           Known for
-          <Row className="fixed-row-bottom">
+          <Row className="g-0 p-2 fixed-row-bottom">
             <ScrollMenu
               dragging={true}
               wheel={false}
@@ -87,7 +87,7 @@ const CastDetail = (props) => {
         </Col>
       </Row>
       History
-      <Row className="justify-content-md-center">
+      <Row className="g-0 justify-content-md-center">
         <Col xs lg="7">
           <Table responsive="sm">
             <tbody>
