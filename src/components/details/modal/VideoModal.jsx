@@ -11,7 +11,7 @@ const VideoModal = (props) => {
 
   const opts = {
     width: 'auto',
-    height: 'auto',
+    height: '250px',
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
@@ -30,9 +30,7 @@ const VideoModal = (props) => {
   return (
     <Modal
       {...props}
-      xs={'auto'}
       aria-labelledby="contained-modal-title-vcenter"
-      centered
     >
       <Modal.Header closeButton>
         <Modal.Title>
@@ -52,8 +50,8 @@ const VideoModal = (props) => {
           </Dropdown>
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <YouTube
+      <Modal.Body >
+        <YouTube className='w-100'
           videoId={choice?.key}
           opts={opts}
         />
