@@ -13,15 +13,18 @@ import FavouritesPage from './components/favourites/FavouritesPage';
 import CastDetail from './components/details/cast/castDetail/CastDetail';
 import HistoryPage from './components/history/HistoryPage';
 import { useSelector } from 'react-redux';
+import {ToastContainer, toast} from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-
   const background = useSelector((state) => {
-		return state.background.backgroundColor
-	})
+    return state.background.backgroundColor
+  })
 
   return (
     <BrowserRouter>
+      <ToastContainer />
       <div className={`content-container ${background}`}>
         <Header className="font-link content-container" />
         <Container fluid className="font-link p-0">

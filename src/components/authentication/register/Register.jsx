@@ -4,6 +4,7 @@ import { getToken, register, getUserData } from "../../../storeAsyncActions/acco
 import { Navigate } from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
 import { getDataAction } from '../../../store/authReducer';
+import { toast } from 'react-toastify'
 
 const Register = () => {
 
@@ -86,9 +87,22 @@ const Register = () => {
 
 	}
 
+
+	const notify = (message) => toast.error(message, {
+		position: "top-center",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
+
 	const submitForm = (e) => {
 		if (errors.username === '' && errors.email === '' && errors.password === '' && errors.submitPassword === '') {
 			register(userData).then(res => {
+				if (res.errorMessage !== undefined)
+					notify(res.errorMessage)
 				getToken(res).then(res => {
 					getUserData(res.access_token).then(res => {
 						const payload = {
