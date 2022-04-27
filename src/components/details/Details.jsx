@@ -88,7 +88,7 @@ const Details = (props) => {
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
-        <Row className="g-0">
+        <Row >
           <Col lg={2}  >
             {movieData.backdrop_path === undefined || movieData.backdrop_path === null ?
               <Image style={largeImageStyle} fluid={true} src={notFoundUrl.movieLargePoster} rounded />
@@ -97,13 +97,13 @@ const Details = (props) => {
             }
           </Col>
           <Col className='m-2' lg={8}  >
-            <Row className="g-0"  >
+            <Row   >
               <h1>
                 {movieData.title ? movieData.title : movieData.original_name} {`(${date.getFullYear()})`}
               </h1>
               <div className="font-italic">{movieData.tagline}</div>
             </Row>
-            <Row className="g-0" xs="auto">
+            <Row  xs="auto">
               <Col><Badge bg="dark">{genres}</Badge></Col>
               <Col><Badge bg="dark">{movieData?.runtime ?
                 movieData?.runtime
@@ -111,7 +111,7 @@ const Details = (props) => {
                 movieData?.episode_run_time ? movieData?.episode_run_time[0] : ''}m</Badge></Col>
             </Row>
             {movieData.overview}
-            <Row className="g-0" xs="auto">
+            <Row  xs="auto">
               {videos.length > 0 ?
                 <Button variant="danger" onClick={() => setModalShow(true)}>
                   Watch trailer
@@ -122,20 +122,20 @@ const Details = (props) => {
                 </Button>
               }
             </Row>
-            <Row className="g-0" xs="auto">
+            <Row  xs="auto">
               <FavButton state={movieData} />
             </Row>
           </Col>
         </Row>
         {mediaType === 'tv' ?
-          <Row className="g-0">
+          <Row >
             <TVData state={movieData} />
           </Row>
           :
           <></>
         }
         Cast
-        <Row className="g-0" >
+        <Row  >
           <ScrollMenu>
             {cast.map(el => {
               return <CastCard state={el} key={el.id} />

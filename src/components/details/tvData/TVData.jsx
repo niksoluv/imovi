@@ -19,7 +19,7 @@ const TVData = (props) => {
     <div>
       {data.in_production ? "Current season" : `Latest season (finished ${data.last_air_date})`}
       <Card>
-        <Row className='g-0'>
+        <Row>
           <Col md='2'>
             <Card.Img style={smallImageStyle} src={`https://image.tmdb.org/t/p/w500${lastSeason?.poster_path}`} />
           </Col>
