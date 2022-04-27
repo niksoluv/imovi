@@ -24,7 +24,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ToastContainer />
+      <ToastContainer/>
       <div className={`content-container ${background}`}>
         <Header className="font-link content-container" />
         <Container fluid className="font-link p-0">
