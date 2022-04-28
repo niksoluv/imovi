@@ -101,8 +101,10 @@ const Register = () => {
 	const submitForm = (e) => {
 		if (errors.username === '' && errors.email === '' && errors.password === '' && errors.submitPassword === '') {
 			register(userData).then(res => {
-				if (res.errorMessage !== undefined)
+				if (res.errorMessage !== undefined) {
 					notify(res.errorMessage)
+					return
+				}
 				getToken(res).then(res => {
 					getUserData(res.access_token).then(res => {
 						const payload = {

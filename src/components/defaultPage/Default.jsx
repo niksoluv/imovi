@@ -115,7 +115,7 @@ const DefaultPage = (props) => {
 		<Container fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
 			Trending
 			<Row xs="auto">
-				<ButtonGroup>
+				<ButtonGroup className="m-1">
 					{trendingPeriodRadios.map((radio, idx) => (
 						<ToggleButton
 							size="sm"
@@ -133,7 +133,7 @@ const DefaultPage = (props) => {
 						</ToggleButton>
 					))}
 				</ButtonGroup>
-				<ButtonGroup>
+				<ButtonGroup className="m-1">
 					{trendingTypeRadios.map((radio, idx) => (
 						<ToggleButton
 							size="sm"
@@ -162,7 +162,7 @@ const DefaultPage = (props) => {
 
 			Popular
 			<Row xs="auto">
-				<ButtonGroup>
+				<ButtonGroup className="m-1">
 					{popularRadios.map((radio, idx) => (
 						<ToggleButton
 							size="sm"
@@ -191,7 +191,7 @@ const DefaultPage = (props) => {
 
 			Movies
 			<Row xs="auto">
-				<ButtonGroup>
+				<ButtonGroup className="m-1">
 					{movieRadios.map((radio, idx) => (
 						<ToggleButton
 							size="sm"

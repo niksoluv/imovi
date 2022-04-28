@@ -55,7 +55,7 @@ export const mapCreditsTable = async (actorId) => {
       date = "----"
     return (
       <tr key={el.id}>
-        <td>{date}</td>
+        <td style={{ color: 'white' }}>{date}</td>
         <td style={{ color: 'white' }}><NavLink to={{
           pathname: `/details/${el.id}/${defineMediatype(el)}`
         }}

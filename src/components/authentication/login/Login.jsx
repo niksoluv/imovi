@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { getDataAction } from "../../../store/authReducer";
 import { getToken, getUserData, login } from "../../../storeAsyncActions/account";
 import { Navigate } from 'react-router';
+import { toast } from "react-toastify";
 
 const Login = () => {
 
@@ -20,8 +21,22 @@ const Login = () => {
 		setUserData(userData)
 	}
 
+	const notify = (message) => toast.error(message, {
+		position: "top-center",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
+
 	const submitForm = (e) => {
 		getToken(userData).then(res => {
+			if (res?.response?.status === 404) {
+				notify("Invalid username or password.")
+				return
+			}
 			getUserData(res.access_token).then(res => {
 				const payload = {
 					userData: res

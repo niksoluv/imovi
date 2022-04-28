@@ -11,7 +11,6 @@ export const register = async (userData) => {
     return response.data
   }
   catch (e) {
-    debugger
     return response.data
   }
 }
@@ -28,9 +27,16 @@ export const getUserData = async (token) => {
 }
 
 export const getToken = async (userData) => {
-  const res = await axios.post(`${variables.API_URL}token`, userData)
-  localStorage.setItem('userToken', res.data.access_token)
-  return res.data
+  let res
+  try {
+    res = await axios.post(`${variables.API_URL}token`, userData)
+    localStorage.setItem('userToken', res.data.access_token)
+    return res.data
+  }
+  catch (err) {
+    console.log(err)
+    return err
+  }
 }
 
 export const logout = (dispatch) => {

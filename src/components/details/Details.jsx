@@ -91,7 +91,7 @@ const Details = (props) => {
         <Row >
           <Col lg={2}  >
             {movieData.backdrop_path === undefined || movieData.backdrop_path === null ?
-              <Image style={largeImageStyle} fluid={true} src={notFoundUrl.movieLargePoster} rounded />
+              <Image style={largeImageStyle} fluid={true} src={notFoundUrl.movieSmallPoster} rounded />
               :
               <Image fluid={true} src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`} rounded />
             }
