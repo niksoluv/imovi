@@ -8,6 +8,7 @@ import { addToHistory } from '../../storeAsyncActions/account'
 import { getMovieCast, getMovieDetails, getVideos } from '../../storeAsyncActions/movies'
 import { largeImageStyle, notFoundUrl } from '../../variables'
 import CastCard from './cast/castCard/CastCard'
+import CommentsSection from './comments/CommentsSection'
 import FavButton from './favButton/FavButton'
 import VideoModal from './modal/VideoModal'
 import TVData from './tvData/TVData'
@@ -82,7 +83,7 @@ const Details = (props) => {
             height: 100%;
           }`}
       </style>
-      <Container className=' p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
+      <Container className='p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
         <VideoModal
           state={movieData}
           show={modalShow}
@@ -103,7 +104,7 @@ const Details = (props) => {
               </h1>
               <div className="font-italic">{movieData.tagline}</div>
             </Row>
-            <Row  xs="auto">
+            <Row xs="auto">
               <Col><Badge bg="dark">{genres}</Badge></Col>
               <Col><Badge bg="dark">{movieData?.runtime ?
                 movieData?.runtime
@@ -111,7 +112,7 @@ const Details = (props) => {
                 movieData?.episode_run_time ? movieData?.episode_run_time[0] : ''}m</Badge></Col>
             </Row>
             {movieData.overview}
-            <Row  xs="auto">
+            <Row xs="auto">
               {videos.length > 0 ?
                 <Button variant="danger" onClick={() => setModalShow(true)}>
                   Watch trailer
@@ -122,7 +123,7 @@ const Details = (props) => {
                 </Button>
               }
             </Row>
-            <Row  xs="auto">
+            <Row xs="auto">
               <FavButton state={movieData} />
             </Row>
           </Col>
@@ -143,6 +144,7 @@ const Details = (props) => {
           </ScrollMenu>
         </Row>
       </Container >
+      <CommentsSection />
     </div>
   )
 }
