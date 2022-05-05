@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
@@ -48,6 +49,7 @@ const Details = (props) => {
   }, [props])
 
   const date = new Date(movieData.release_date ? movieData.release_date : movieData.first_air_date)
+
   const genres = movieData.genres?.map((el, index) => {
     return <NavLink key={index}
       style={{ color: 'white !important' }}
@@ -114,7 +116,7 @@ const Details = (props) => {
             {movieData.overview}
             <Row xs="auto">
               {videos.length > 0 ?
-                <Button variant="danger" onClick={() => setModalShow(true)}>
+                <Button variant="danger" onClick={() => setModalShow(true)}><i className="fa-solid fa-clapperboard"></i>
                   Watch trailer
                 </Button>
                 :
@@ -144,7 +146,10 @@ const Details = (props) => {
           </ScrollMenu>
         </Row>
       </Container >
-      <CommentsSection />
+      <CommentsSection state={{
+        id: movieId,
+        mediaType: mediaType,
+      }} />
     </div>
   )
 }
