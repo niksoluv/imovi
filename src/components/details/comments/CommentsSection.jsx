@@ -81,7 +81,7 @@ const CommentsSection = (props) => {
                       {commentActive ?
                         <div className="d-flex justify-content-end mt-3">
                           <button onClick={() => { setCommentActive(false) }} type="button" className="btn btn-secondary mr-1">Cancel</button>
-                          <button onClick={handleAddComment} type="button" className="btn btn-danger  ml-1">
+                          <button onClick={handleAddComment} type="button" className="btn btn-danger" style={{marginLeft:'10px'}}>
                             Comment <i className="fas fa-long-arrow-alt-right ms-1"></i>
                           </button>
                         </div>

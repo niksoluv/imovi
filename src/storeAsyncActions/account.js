@@ -58,6 +58,7 @@ export const isMovieInFavourites = async (movieId) => {
 }
 
 export const addToFavourites = async (movie) => {
+  debugger
   const res = await axios.post(`${variables.API_URL}api/Movies/addToFavourites`,
     {
       movieId: `${movie.id}`,
@@ -89,13 +90,13 @@ export const getFavourites = async () => {
       }
     })
   const reqArr = res.data.map(el => {
-    switch (el.mediaType) {
+    switch (el.movie.mediaType) {
       case 'movie':
-        return axios.get(`${variables.DEFAULT_URL}movie/${el.movieId}?api_key=${variables.API_KEY}&language=en-US`)
+        return axios.get(`${variables.DEFAULT_URL}movie/${el.movie.movieId}?api_key=${variables.API_KEY}&language=en-US`)
       case 'tv':
-        return axios.get(`${variables.DEFAULT_URL}tv/${el.movieId}?api_key=${variables.API_KEY}&language=en-US`)
+        return axios.get(`${variables.DEFAULT_URL}tv/${el.movie.movieId}?api_key=${variables.API_KEY}&language=en-US`)
       default:
-        return axios.get(`${variables.DEFAULT_URL}movie/${el.movieId}?api_key=${variables.API_KEY}&language=en-US`)
+        return axios.get(`${variables.DEFAULT_URL}movie/${el.movie.movieId}?api_key=${variables.API_KEY}&language=en-US`)
     }
   })
 

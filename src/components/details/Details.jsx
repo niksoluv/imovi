@@ -92,14 +92,14 @@ const Details = (props) => {
           onHide={() => setModalShow(false)}
         />
         <Row >
-          <Col lg={2}  >
+          <Col xl={2} lg={2} md={2} sm={2}   >
             {movieData.backdrop_path === undefined || movieData.backdrop_path === null ?
               <Image style={largeImageStyle} fluid={true} src={notFoundUrl.movieSmallPoster} rounded />
               :
               <Image fluid={true} src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`} rounded />
             }
           </Col>
-          <Col className='m-2' lg={8}  >
+          <Col className='m-2' xl={8} lg={8} md={8} sm={8} >
             <Row   >
               <h1>
                 {movieData.title ? movieData.title : movieData.original_name} {`(${date.getFullYear()})`}
@@ -108,7 +108,7 @@ const Details = (props) => {
             </Row>
             <Row xs="auto">
               <Col><Badge bg="dark">{genres}</Badge></Col>
-              <Col><Badge bg="dark">{movieData?.runtime ?
+              <Col style={{marginLeft:'10px'}}><Badge bg="dark">{movieData?.runtime ?
                 movieData?.runtime
                 :
                 movieData?.episode_run_time ? movieData?.episode_run_time[0] : ''}m</Badge></Col>
@@ -116,7 +116,7 @@ const Details = (props) => {
             {movieData.overview}
             <Row xs="auto">
               {videos.length > 0 ?
-                <Button variant="danger" onClick={() => setModalShow(true)}><i className="fa-solid fa-clapperboard"></i>
+                <Button variant="danger" onClick={() => setModalShow(true)}><i style={{marginRight:'5px'}} className="fa-solid fa-clapperboard"></i>
                   Watch trailer
                 </Button>
                 :
