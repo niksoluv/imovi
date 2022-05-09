@@ -43,8 +43,12 @@ export const getComments = async (movieId) => {
   }
 }
 
-export const mapComments = (comments) => {
+export const mapComments = (comments, userId) => {
   const mappedComments = comments.map(comment => {
+    const usersLikes = comment.usersLikes
+    const commentLiked = usersLikes.filter(ul => ul.userId === userId).length > 0 ? true : false
+    debugger
+    // const badgeStyle=userLikes.
     const date = new Date(comment.date)
     return (
       <>
@@ -60,7 +64,7 @@ export const mapComments = (comments) => {
               </p>
               <div className={`btn-sm link-muted ${styles.button}`}><i className="fa fa-pencil-alt "></i></div>
               <div className={`btn-sm link-muted ${styles.button}`}><i className="fas fa-redo-alt ms-2"></i></div>
-              <div className={`btn-sm link-muted ${styles.button}`}><i className="fas fa-heart ms-2"></i></div>
+              <div className={`btn-sm link-muted ${commentLiked ? styles.button_red : styles.button}`}><i className={`fas fa-heart ms-2`}></i></div>
             </div>
             <p className="mb-0">
               {comment.data}
@@ -74,4 +78,15 @@ export const mapComments = (comments) => {
   })
 
   return mappedComments
+}
+
+export const likeComment = async (commentId) => {
+  const res = await axios.post(`${variables.API_URL}api/comments/like`,
+    { commentId: commentId },
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+      }
+    })
+  return res.data
 }

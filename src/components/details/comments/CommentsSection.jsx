@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { addComment, getComments } from "../../../storeAsyncActions/comments";
 import styles from "./CommentsSection.module.css"
 import { mapComments } from './../../../storeAsyncActions/comments';
+import { useSelector } from "react-redux";
 
 const CommentsSection = (props) => {
 
@@ -11,11 +12,15 @@ const CommentsSection = (props) => {
   const [commentData, setCommentData] = useState("")
   const [comments, setComments] = useState([])
 
+	const userInfo = useSelector((state) => {
+		return state.userInfo.userData
+	})
+
   useEffect(() => {
     getComments(props.state.id).then(res => {
-      setComments(mapComments(res.response))
+      setComments(mapComments(res.response, userInfo.id))
     })
-  }, [])
+  }, [userInfo])
 
   const handleInput = (e) => {
     setCommentData(e.target.value)

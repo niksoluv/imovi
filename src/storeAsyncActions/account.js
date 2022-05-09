@@ -58,7 +58,6 @@ export const isMovieInFavourites = async (movieId) => {
 }
 
 export const addToFavourites = async (movie) => {
-  debugger
   const res = await axios.post(`${variables.API_URL}api/Movies/addToFavourites`,
     {
       movieId: `${movie.id}`,
