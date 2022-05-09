@@ -62,15 +62,24 @@ const Header = () => {
               <NavLink onClick={() => {
                 const payload = { movies: [] }
                 dispatch(getMoviesAction(payload))
-              }} to={{ pathname: '/trending' }} style={{ textDecoration: 'none', color: 'grey' }}>Trending</NavLink>
+              }} to={{ pathname: '/trending' }} style={{ textDecoration: 'none', color: 'grey' }}>
+                Trending
+                <i style={{marginLeft:'5px', marginRight:'5px', display:'inline'}} className="fa-solid fa-bolt"></i>
+                </NavLink>
             </Nav.Item>
             {userData?.id ?
               <>
                 <Nav.Item className="p-1">
-                  <NavLink to={{ pathname: '/favourites' }} style={{ textDecoration: 'none', color: 'grey' }}>Favourites</NavLink>
+                  <NavLink to={{ pathname: '/favourites' }} style={{ textDecoration: 'none', color: 'grey' }}>
+                    Favourites
+                    <i style={{marginLeft:'5px', marginRight:'5px', display:'inline'}} className="fa-solid fa-bookmark"></i>
+                    </NavLink>
                 </Nav.Item>
                 <Nav.Item className="p-1">
-                  <NavLink to={{ pathname: '/history' }} style={{ textDecoration: 'none', color: 'grey' }}>History</NavLink>
+                  <NavLink to={{ pathname: '/history' }} style={{ textDecoration: 'none', color: 'grey' }}>
+                    History
+                    <i style={{marginLeft:'5px', marginRight:'5px', display:'inline'}} className="fa-solid fa-clock-rotate-left"></i>
+                    </NavLink>
                 </Nav.Item>
               </>
               :
@@ -99,14 +108,23 @@ const Header = () => {
             </NavLink>
             {userData?.id ?
               <>
-                <Nav.Link href="#" disabled>{userData.username}</Nav.Link>
+                <Nav.Link href="#" disabled>
+                  {userData.username}
+                  <i style={{ marginLeft: '5px', display: 'inline' }} className="fa-solid fa-address-card"></i>
+                  </Nav.Link>
                 <Button as={Row} onClick={() => logout(dispatch)} variant="secondary"
-                  className="mx-2">logout</Button>
+                  className="mx-2">
+                  logout
+                  <i style={{ marginLeft: '5px', display: 'inline' }} className="fa-solid fa-door-open"></i>
+                </Button>
               </>
               :
               <>
                 <NavLink as={Col} to={{ pathname: '/login' }}>
-                  <Button as={Col} variant="secondary" className="mx-2">login</Button>
+                  <Button as={Col} variant="secondary" className="mx-2">
+                    login
+                    <i style={{ marginLeft: '5px', display: 'inline' }} className="fa-solid fa-right-to-bracket"></i>
+                  </Button>
                 </NavLink>
               </>}
           </Form>
