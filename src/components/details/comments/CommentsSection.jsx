@@ -32,7 +32,6 @@ const CommentsSection = (props) => {
   }, [userInfo])
 
   useEffect(() => {
-    debugger
     setComments(mapComments(storedComments, userInfo.id, props.state.id))
   }, [storedComments])
 
@@ -60,6 +59,16 @@ const CommentsSection = (props) => {
     progress: undefined,
   });
 
+  const notify_warn = (message) => toast.warn(message, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+
   const handleAddComment = () => {
     if (commentData === "" || commentData === undefined) {
       warn("Comment can't be empty")
@@ -70,6 +79,15 @@ const CommentsSection = (props) => {
       setCommentData("")
       notify("Your comment successfully added")
     })
+      .then(res => {
+        getComments(props.state.id).then(res => {
+          const payload = {
+            comments: res.response
+          }
+          dispatch(getCommentsAction(payload))
+        })
+      })
+
   }
 
   const mapComments = (comments, userId, movieId) => {
@@ -91,11 +109,19 @@ const CommentsSection = (props) => {
                 <p className="mb-0 m-1">
                   {date.toDateString()}
                 </p>
-                <div className={`btn-sm link-muted ${styles.button}`}><i className="fa fa-pencil-alt "></i></div>
+                {comment.user.id === userId ?
+                  <div className={`btn-sm link-muted ${styles.button}`}><i className="fa fa-pencil-alt "></i></div>
+                  :
+                  <></>
+                }
                 <div className={`btn-sm link-muted ${styles.button}`}><i className="fas fa-redo-alt ms-2"></i></div>
                 <div className={`btn-sm link-muted ${commentLiked ? styles.button_red : styles.button}`}>
                   <i className={`fas fa-heart ms-2`}
                     onClick={() => {
+                      if (userInfo?.id === undefined) {
+                        notify_warn("You need to be logged in to like or unlike comments")
+                        return
+                      }
                       commentLiked ? unlikeComment(comment.id, movieId)
                         .then(res => {
                           getComments(props.state.id).then(res => {

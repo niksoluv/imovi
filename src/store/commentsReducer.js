@@ -5,7 +5,6 @@ const defaultState = {
 const GET_COMMENTS = 'GET_COMMENTS'
 
 export const commentsReducer = (state = defaultState, action) => {
-  debugger
 	switch (action.type) {
 		case GET_COMMENTS:
 			return { ...state, comments: action.payload.comments }
