@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Card, Col, Container, Row, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { addComment, getComments } from "../../../storeAsyncActions/comments";
+import { addComment, getComments, likeComment, unlikeComment } from "../../../storeAsyncActions/comments";
 import styles from "./CommentsSection.module.css"
 import { mapComments } from './../../../storeAsyncActions/comments';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getCommentsAction } from "../../../store/commentsReducer";
 
 const CommentsSection = (props) => {
 
@@ -12,15 +13,28 @@ const CommentsSection = (props) => {
   const [commentData, setCommentData] = useState("")
   const [comments, setComments] = useState([])
 
-	const userInfo = useSelector((state) => {
-		return state.userInfo.userData
-	})
+  const dispatch = useDispatch()
+  const storedComments = useSelector((state) => {
+    return state.comments.comments
+  })
+
+  const userInfo = useSelector((state) => {
+    return state.userInfo.userData
+  })
 
   useEffect(() => {
     getComments(props.state.id).then(res => {
-      setComments(mapComments(res.response, userInfo.id))
+      const payload = {
+        comments: res.response
+      }
+      dispatch(getCommentsAction(payload))
     })
   }, [userInfo])
+
+  useEffect(() => {
+    debugger
+    setComments(mapComments(storedComments, userInfo.id, props.state.id))
+  }, [storedComments])
 
   const handleInput = (e) => {
     setCommentData(e.target.value)
@@ -58,6 +72,64 @@ const CommentsSection = (props) => {
     })
   }
 
+  const mapComments = (comments, userId, movieId) => {
+    const mappedComments = comments.map(comment => {
+      const usersLikes = comment.usersLikes
+      const commentLiked = usersLikes.filter(ul => ul.userId === userId).length > 0 ? true : false
+
+      // const badgeStyle=userLikes.
+      const date = new Date(comment.date)
+      return (
+        <>
+          <div className="d-flex flex-start">
+            <img className="rounded-circle shadow-1-strong me-3"
+              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
+              height="60" />
+            <div>
+              <h6 className="fw-bold mb-1">{comment.user.username}</h6>
+              <div className="d-flex align-items-center mb-3">
+                <p className="mb-0 m-1">
+                  {date.toDateString()}
+                </p>
+                <div className={`btn-sm link-muted ${styles.button}`}><i className="fa fa-pencil-alt "></i></div>
+                <div className={`btn-sm link-muted ${styles.button}`}><i className="fas fa-redo-alt ms-2"></i></div>
+                <div className={`btn-sm link-muted ${commentLiked ? styles.button_red : styles.button}`}>
+                  <i className={`fas fa-heart ms-2`}
+                    onClick={() => {
+                      commentLiked ? unlikeComment(comment.id, movieId)
+                        .then(res => {
+                          getComments(props.state.id).then(res => {
+                            const payload = {
+                              comments: res.response
+                            }
+                            dispatch(getCommentsAction(payload))
+                          })
+                        }) : likeComment(comment.id, movieId)
+                          .then(res => {
+                            getComments(props.state.id).then(res => {
+                              const payload = {
+                                comments: res.response
+                              }
+                              dispatch(getCommentsAction(payload))
+                            })
+                          })
+                    }}></i>
+                </div>
+              </div>
+              <p className="mb-0">
+                {comment.data}
+              </p>
+            </div>
+          </div>
+
+          <hr className="mt-1" />
+        </>
+      )
+    })
+
+    return mappedComments
+  }
+
   return (
     <div>
       <section>
@@ -86,7 +158,7 @@ const CommentsSection = (props) => {
                       {commentActive ?
                         <div className="d-flex justify-content-end mt-3">
                           <button onClick={() => { setCommentActive(false) }} type="button" className="btn btn-secondary mr-1">Cancel</button>
-                          <button onClick={handleAddComment} type="button" className="btn btn-danger" style={{marginLeft:'10px'}}>
+                          <button onClick={handleAddComment} type="button" className="btn btn-danger" style={{ marginLeft: '10px' }}>
                             Comment <i className="fas fa-long-arrow-alt-right ms-1"></i>
                           </button>
                         </div>

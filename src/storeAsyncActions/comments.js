@@ -1,6 +1,8 @@
 import axios from "axios"
 import { variables } from "../variables"
 import styles from "../components/details/comments/CommentsSection.module.css"
+import { useDispatch } from "react-redux"
+import { getCommentsAction } from "../store/commentsReducer"
 
 export const addComment = async (movieId, mediaType, commentData) => {
   let res
@@ -43,45 +45,19 @@ export const getComments = async (movieId) => {
   }
 }
 
-export const mapComments = (comments, userId) => {
-  const mappedComments = comments.map(comment => {
-    const usersLikes = comment.usersLikes
-    const commentLiked = usersLikes.filter(ul => ul.userId === userId).length > 0 ? true : false
-    debugger
-    // const badgeStyle=userLikes.
-    const date = new Date(comment.date)
-    return (
-      <>
-        <div className="d-flex flex-start">
-          <img className="rounded-circle shadow-1-strong me-3"
-            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
-            height="60" />
-          <div>
-            <h6 className="fw-bold mb-1">{comment.user.username}</h6>
-            <div className="d-flex align-items-center mb-3">
-              <p className="mb-0 m-1">
-                {date.toDateString()}
-              </p>
-              <div className={`btn-sm link-muted ${styles.button}`}><i className="fa fa-pencil-alt "></i></div>
-              <div className={`btn-sm link-muted ${styles.button}`}><i className="fas fa-redo-alt ms-2"></i></div>
-              <div className={`btn-sm link-muted ${commentLiked ? styles.button_red : styles.button}`}><i className={`fas fa-heart ms-2`}></i></div>
-            </div>
-            <p className="mb-0">
-              {comment.data}
-            </p>
-          </div>
-        </div>
-
-        <hr className="mt-1" />
-      </>
-    )
-  })
-
-  return mappedComments
+export const likeComment = async (commentId, movieId) => {
+  const res = await axios.post(`${variables.API_URL}api/comments/like`,
+    { commentId: commentId },
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+      }
+    })
+  return res.data
 }
 
-export const likeComment = async (commentId) => {
-  const res = await axios.post(`${variables.API_URL}api/comments/like`,
+export const unlikeComment = async (commentId, movieId) => {
+  const res = await axios.post(`${variables.API_URL}api/comments/unlike`,
     { commentId: commentId },
     {
       headers: {
