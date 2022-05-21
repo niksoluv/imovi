@@ -81,6 +81,12 @@ const Header = () => {
                     <i style={{marginLeft:'5px', marginRight:'5px', display:'inline'}} className="fa-solid fa-clock-rotate-left"></i>
                     </NavLink>
                 </Nav.Item>
+                <Nav.Item className="p-1">
+                  <NavLink to={{ pathname: '/history' }} style={{ textDecoration: 'none', color: 'grey' }}>
+                    {userData.username}
+                    <i style={{ marginLeft: '5px', marginRight: '5px', display: 'inline' }} className="fa-solid fa-address-card"></i>
+                  </NavLink>
+                </Nav.Item>
               </>
               :
               <></>
@@ -108,10 +114,6 @@ const Header = () => {
             </NavLink>
             {userData?.id ?
               <>
-                <Nav.Link href="#" disabled>
-                  {userData.username}
-                  <i style={{ marginLeft: '5px', display: 'inline' }} className="fa-solid fa-address-card"></i>
-                  </Nav.Link>
                 <Button as={Row} onClick={() => logout(dispatch)} variant="secondary"
                   className="mx-2">
                   logout
