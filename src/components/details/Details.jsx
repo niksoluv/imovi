@@ -2,15 +2,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import { Badge, Button, Col, Container, Image, Row } from 'react-bootstrap'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
-import { useDispatch } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
-import { setColorAction } from '../../store/background'
 import { addToHistory } from '../../storeAsyncActions/account'
 import { getMovieCast, getMovieDetails, getVideos } from '../../storeAsyncActions/movies'
 import { largeImageStyle, notFoundUrl } from '../../variables'
 import CastCard from './cast/castCard/CastCard'
 import CommentsSection from './comments/CommentsSection'
 import FavButton from './favButton/FavButton'
+import AddToCustomListButton from './customListButton/AddToCustomListButton'
 import VideoModal from './modal/VideoModal'
 import TVData from './tvData/TVData'
 
@@ -53,7 +52,8 @@ const Details = (props) => {
   const genres = movieData.genres?.map((el, index) => {
     return <NavLink key={index}
       style={{ color: 'white !important' }}
-      to={{ pathname: el.name }}>{el.name}{index === movieData.genres.length - 1 ? '' : ', '}</NavLink>
+      to={{ pathname: el.name 
+}}>{el.name}{index === movieData.genres.length - 1 ? '' : ', '}</NavLink>
   })
 
   return (
@@ -127,6 +127,7 @@ const Details = (props) => {
             </Row>
             <Row xs="auto">
               <FavButton state={movieData} />
+              <AddToCustomListButton state={movieData} />
             </Row>
           </Col>
         </Row>
