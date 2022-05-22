@@ -74,6 +74,10 @@ const CommentsSection = (props) => {
       warn("Comment can't be empty")
       return
     }
+    if (userInfo?.id === undefined) {
+      notify_warn("You need to be logged in to leave comments")
+      return
+    }
     addComment(props.state.id, props.state.mediaType, commentData).then(res => {
       console.log(res.response)
       setCommentData("")
