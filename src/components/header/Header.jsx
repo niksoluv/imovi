@@ -44,12 +44,14 @@ const Header = () => {
     <Navbar collapseOnSelect bg="dark" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/trending">
-          <ReactSVG
-            beforeInjection={(svg) => {
-              svg.classList.add('svg-class-name')
-              svg.setAttribute('style', 'width: 100px; height: 40px')
-            }}
-            src={process.env.PUBLIC_URL + "/imoviIcon.svg"} />
+          <NavLink to={{ pathname: "trending" }}>
+            <ReactSVG
+              beforeInjection={(svg) => {
+                svg.classList.add('svg-class-name')
+                svg.setAttribute('style', 'width: 100px; height: 40px')
+              }}
+              src={process.env.PUBLIC_URL + "/imoviIcon.svg"} />
+          </NavLink>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -64,22 +66,22 @@ const Header = () => {
                 dispatch(getMoviesAction(payload))
               }} to={{ pathname: '/trending' }} style={{ textDecoration: 'none', color: 'grey' }}>
                 Trending
-                <i style={{marginLeft:'5px', marginRight:'5px', display:'inline'}} className="fa-solid fa-bolt"></i>
-                </NavLink>
+                <i style={{ marginLeft: '5px', marginRight: '5px', display: 'inline' }} className="fa-solid fa-bolt"></i>
+              </NavLink>
             </Nav.Item>
             {userData?.id ?
               <>
                 <Nav.Item className="p-1">
                   <NavLink to={{ pathname: '/favourites' }} style={{ textDecoration: 'none', color: 'grey' }}>
                     Favourites
-                    <i style={{marginLeft:'5px', marginRight:'5px', display:'inline'}} className="fa-solid fa-bookmark"></i>
-                    </NavLink>
+                    <i style={{ marginLeft: '5px', marginRight: '5px', display: 'inline' }} className="fa-solid fa-bookmark"></i>
+                  </NavLink>
                 </Nav.Item>
                 <Nav.Item className="p-1">
                   <NavLink to={{ pathname: '/history' }} style={{ textDecoration: 'none', color: 'grey' }}>
                     History
-                    <i style={{marginLeft:'5px', marginRight:'5px', display:'inline'}} className="fa-solid fa-clock-rotate-left"></i>
-                    </NavLink>
+                    <i style={{ marginLeft: '5px', marginRight: '5px', display: 'inline' }} className="fa-solid fa-clock-rotate-left"></i>
+                  </NavLink>
                 </Nav.Item>
                 <Nav.Item className="p-1">
                   <NavLink to={{ pathname: '/history' }} style={{ textDecoration: 'none', color: 'grey' }}>
@@ -132,7 +134,7 @@ const Header = () => {
           </Form>
         </Navbar.Collapse>
       </Container>
-    </Navbar>
+    </Navbar >
   )
 }
 export default Header
