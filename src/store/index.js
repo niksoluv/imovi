@@ -6,12 +6,14 @@ import { authReducer } from "./authReducer"
 import { backgroundReducer } from "./background"
 import { moviesReducer } from "./moviesReducer"
 import { commentsReducer } from "./commentsReducer"
+import { listsReducer } from "./listsReducer"
 
 const rootReducer = combineReducers({
 	userInfo: authReducer,
 	movies: moviesReducer,
 	background: backgroundReducer,
-	comments: commentsReducer
+	comments: commentsReducer,
+	lists: listsReducer
 })
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))

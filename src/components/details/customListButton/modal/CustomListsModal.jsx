@@ -1,28 +1,42 @@
 import { useEffect, useState } from "react"
 import { Button, Dropdown, Modal, Table } from "react-bootstrap"
-import { mapLists } from "../../../../storeAsyncActions/customLists"
+import { createList, getLists, mapLists } from "../../../../storeAsyncActions/customLists"
+import { useDispatch, useSelector } from 'react-redux';
+import { getListsAction } from "../../../../store/listsReducer";
 
 const CustomListsModal = (props) => {
-
-  const lists = [
-    "list1",
-    "list2",
-    "list3",
-    "list4",
-    "list5",
-    "list6",
-  ]
-
-  useEffect(() => {
-    setMappedLists(mapLists(lists))
-  }, [props])
 
   const [showInput, setShowInput] = useState(false)
   const [listName, setListName] = useState("")
   const [mappedLists, setMappedLists] = useState([])
 
-  const handleCreateList = () => {
+  const dispatch = useDispatch()
+  const comments = useSelector((state) => {
+    return state.lists.lists
+  })
 
+  useEffect(() => {
+    getLists().then(res => {
+      const payload = {
+        lists: res
+      }
+      dispatch(getListsAction(payload))
+    })
+  }, [props])
+
+  useEffect(() => {
+    setMappedLists(mapLists(comments))
+  }, [comments])
+
+  const handleCreateList = () => {
+    createList(listName).then(() => {
+      getLists().then(res => {
+        const payload = {
+          lists: res
+        }
+        dispatch(getListsAction(payload))
+      })
+    })
   }
 
   return (
@@ -36,7 +50,7 @@ const CustomListsModal = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body >
-            {mappedLists}
+        {mappedLists}
         <Button onClick={() => { setShowInput(true) }} className="mt-2">Create new list</Button>
         {
           showInput ?
