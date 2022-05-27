@@ -79,7 +79,6 @@ const CommentsSection = (props) => {
       return
     }
     addComment(props.state.id, props.state.mediaType, commentData).then(res => {
-      console.log(res.response)
       setCommentData("")
       notify("Your comment successfully added")
     })

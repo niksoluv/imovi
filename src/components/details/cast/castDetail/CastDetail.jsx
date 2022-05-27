@@ -53,7 +53,6 @@ const CastDetail = (props) => {
         setBiography(block)
       }
     }
-    console.log(actor.also_known_as)
     setAka(actor.also_known_as[0])
   }
 

@@ -4,7 +4,6 @@ import { smallImageStyle } from "../../../variables"
 const TVData = (props) => {
 
   const data = props.state
-  console.log(data)
 
   let seasons = []
   let lastSeason = {}
