@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Dropdown, Modal, Row, Table } from "react-bootstrap"
-import { addToList, createList, getLists, mapLists, removeFromList } from "../../../../storeAsyncActions/customLists"
+import { addToList, createList, deleteList, getLists, mapLists, removeFromList } from "../../../../storeAsyncActions/customLists"
 import { useDispatch, useSelector } from 'react-redux';
 import { getListsAction } from "../../../../store/listsReducer";
 import { defineMediatype } from "../../../../storeAsyncActions/account";
@@ -36,6 +36,8 @@ const CustomListsModal = (props) => {
           lists: res
         }
         dispatch(getListsAction(payload))
+        setShowInput(false)
+        setListName("")
       })
     })
   }
@@ -48,7 +50,6 @@ const CustomListsModal = (props) => {
         .filter(m => m.movie.movieId === `${movie.id}` && m.movie.mediaType === mediaType)
 
       const isMovieInList = movies.length > 0
-      console.log(isMovieInList, mediaType)
       return (
         <div class="alert alert-primary m-1 p-1">
           <Container fluid>
@@ -83,7 +84,17 @@ const CustomListsModal = (props) => {
                     }}><i class="fa-solid fa-plus"></i></button>
                 }
 
-                <button className="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                <button className="btn btn-danger"
+                  onClick={() => {
+                    deleteList(list).then(res => {
+                      getLists().then(res => {
+                        const payload = {
+                          lists: res
+                        }
+                        dispatch(getListsAction(payload))
+                      })
+                    })
+                  }}><i class="fa-solid fa-trash-can"></i></button>
               </Col>
             </Row>
           </Container>

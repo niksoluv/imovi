@@ -53,3 +53,14 @@ export const removeFromList = async (movie) => {
     })
   return response.data
 }
+
+export const deleteList = async (list) => {
+  let response = await axios.delete(`${variables.API_URL}api/CustomLists/delete`,
+    {
+      data:{...list},
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+      }
+    })
+  return response.data
+}
