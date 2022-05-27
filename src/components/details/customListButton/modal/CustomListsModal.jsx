@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import { Button, Dropdown, Modal, Table } from "react-bootstrap"
-import { createList, getLists, mapLists } from "../../../../storeAsyncActions/customLists"
+import { Button, Col, Container, Dropdown, Modal, Row, Table } from "react-bootstrap"
+import { addToList, createList, getLists, mapLists, removeFromList } from "../../../../storeAsyncActions/customLists"
 import { useDispatch, useSelector } from 'react-redux';
 import { getListsAction } from "../../../../store/listsReducer";
+import { defineMediatype } from "../../../../storeAsyncActions/account";
 
 const CustomListsModal = (props) => {
 
@@ -25,7 +26,7 @@ const CustomListsModal = (props) => {
   }, [props])
 
   useEffect(() => {
-    setMappedLists(mapLists(comments))
+    setMappedLists(mapLists(comments, props.state))
   }, [comments])
 
   const handleCreateList = () => {
@@ -37,6 +38,59 @@ const CustomListsModal = (props) => {
         dispatch(getListsAction(payload))
       })
     })
+  }
+
+  const mapLists = (lists, movie) => {
+    const res = lists.map(list => {
+      const mediaType = defineMediatype(movie)
+
+      const movies = list.relatedMovies
+        .filter(m => m.movie.movieId === `${movie.id}` && m.movie.mediaType === mediaType)
+
+      const isMovieInList = movies.length > 0
+      console.log(isMovieInList, mediaType)
+      return (
+        <div class="alert alert-primary m-1 p-1">
+          <Container fluid>
+            <Row>
+              <Col className="my-auto">
+                {list.listName}
+              </Col>
+              <Col xl={2} lg={2} md={2} sm={2} xs={2} className="d-flex justify-content-end">
+                {isMovieInList ?
+                  <button className="btn btn-danger"
+                    onClick={() => {
+                      removeFromList(movies[0]).then(res => {
+                        getLists().then(res => {
+                          const payload = {
+                            lists: res
+                          }
+                          dispatch(getListsAction(payload))
+                        })
+                      })
+                    }}><i class="fa-solid fa-ban"></i></button>
+                  :
+                  <button className="btn btn-danger"
+                    onClick={() => {
+                      addToList(props.state, list.id).then(res => {
+                        getLists().then(res => {
+                          const payload = {
+                            lists: res
+                          }
+                          dispatch(getListsAction(payload))
+                        })
+                      })
+                    }}><i class="fa-solid fa-plus"></i></button>
+                }
+
+                <button className="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      )
+    })
+    return res
   }
 
   return (

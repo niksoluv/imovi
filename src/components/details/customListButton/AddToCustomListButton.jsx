@@ -21,6 +21,7 @@ const AddToCustomListButton = (props) => {
       <CustomListsModal
         show={modalShow}
         onHide={() => setModalShow(false)}
+        state={props.state}
       />
       <Button onClick={clickHandler}
         className='bg-warn mt-1' style={{ marginLeft: "2px" }} >
