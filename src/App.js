@@ -13,9 +13,10 @@ import FavouritesPage from './components/favourites/FavouritesPage';
 import CastDetail from './components/details/cast/castDetail/CastDetail';
 import HistoryPage from './components/history/HistoryPage';
 import { useSelector } from 'react-redux';
-import {ToastContainer, toast} from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 
 import 'react-toastify/dist/ReactToastify.css';
+import Profile from './components/profile/Profile';
 
 function App() {
   const background = useSelector((state) => {
@@ -24,7 +25,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ToastContainer/>
+      <ToastContainer />
       <div className={`content-container ${background}`}>
         <Header className="font-link content-container" />
         <Container fluid className="font-link p-0">
@@ -34,6 +35,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/search' element={<SearchPage mode='search' />} />
+            <Route path='/profile' element={<Profile />} />
 
             <Route path='/details' element={<Details />}>
               <Route path=":id" element={<Details />} />

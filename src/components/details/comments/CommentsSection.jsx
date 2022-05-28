@@ -7,6 +7,7 @@ import { mapComments } from './../../../storeAsyncActions/comments';
 import { useDispatch, useSelector } from "react-redux";
 import { getCommentsAction } from "../../../store/commentsReducer";
 import CommentsModal from "./CommentsModal";
+import Avatar from "boring-avatars";
 
 const CommentsSection = (props) => {
 
@@ -109,9 +110,12 @@ const CommentsSection = (props) => {
             <Col xs={1} xl={1} lg={1} md={1} sm={1}></Col>
             <Col xs={10} xl={10} lg={10} md={10} sm={10}>
               <div className="d-flex flex-start ">
-                <img className="rounded-circle shadow-1-strong me-3"
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
-                  height="60" />
+                <Avatar
+                  size={60}
+                  name={reply.user.username}
+                  variant="beam"
+                  colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
+                />
                 <div>
                   <h6 className="fw-bold mb-1">{reply.user.username}</h6>
                   <div className="d-flex align-items-center mb-3">
@@ -133,9 +137,12 @@ const CommentsSection = (props) => {
       return (
         <>
           <div className="d-flex flex-start ">
-            <img className="rounded-circle shadow-1-strong me-3"
-              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
-              height="60" />
+            <Avatar
+              size={60}
+              name={comment.user.username}
+              variant="beam"
+              colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
+            />
             <div>
               <h6 className="fw-bold mb-1">{comment.user.username}</h6>
               <div className="d-flex align-items-center mb-3">
@@ -221,9 +228,12 @@ const CommentsSection = (props) => {
               <Card className="card">
                 <Card.Body className="card-body p-4">
                   <div className="d-flex flex-start w-100">
-                    <img className="rounded-circle shadow-1-strong me-3"
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(21).webp" alt="avatar" width="65"
-                      height="65" />
+                    <Avatar
+                      size={65}
+                      name={userInfo.username}
+                      variant="beam"
+                      colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
+                    />
                     <div className="w-100">
                       <h5>Add a comment</h5>
                       <div className="form-outline">

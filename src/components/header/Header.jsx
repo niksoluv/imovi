@@ -84,7 +84,7 @@ const Header = () => {
                   </NavLink>
                 </Nav.Item>
                 <Nav.Item className="p-1">
-                  <NavLink to={{ pathname: '/history' }} style={{ textDecoration: 'none', color: 'grey' }}>
+                  <NavLink to={{ pathname: '/profile' }} style={{ textDecoration: 'none', color: 'grey' }}>
                     {userData.username}
                     <i style={{ marginLeft: '5px', marginRight: '5px', display: 'inline' }} className="fa-solid fa-address-card"></i>
                   </NavLink>
