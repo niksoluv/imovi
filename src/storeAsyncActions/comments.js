@@ -66,3 +66,25 @@ export const unlikeComment = async (commentId, movieId) => {
     })
   return res.data
 }
+
+export const replyComment = async (commentId, commentData) => {
+  let res
+  const commentReply = {
+    data: commentData,
+    commentId: commentId
+  }
+  try {
+    res = await axios.post(`${variables.API_URL}api/comments/reply`,
+      commentReply,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+      })
+    return res.data
+  }
+  catch (err) {
+    console.log(err)
+    return err
+  }
+}

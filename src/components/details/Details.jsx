@@ -52,8 +52,9 @@ const Details = (props) => {
   const genres = movieData.genres?.map((el, index) => {
     return <NavLink key={index}
       style={{ color: 'white !important' }}
-      to={{ pathname: el.name 
-}}>{el.name}{index === movieData.genres.length - 1 ? '' : ', '}</NavLink>
+      to={{
+        pathname: el.name
+      }}>{el.name}{index === movieData.genres.length - 1 ? '' : ', '}</NavLink>
   })
 
   return (
@@ -108,15 +109,21 @@ const Details = (props) => {
             </Row>
             <Row xs="auto">
               <Col><Badge bg="dark">{genres}</Badge></Col>
-              <Col style={{marginLeft:'10px'}}><Badge bg="dark">{movieData?.runtime ?
+              <Col style={{ marginLeft: '10px' }}><Badge bg="dark">{movieData?.runtime ?
                 movieData?.runtime
                 :
                 movieData?.episode_run_time ? movieData?.episode_run_time[0] : ''}m</Badge></Col>
             </Row>
+            <Row xs="auto">
+              <Col><Badge bg="dark">Budget: {movieData.budget} $</Badge></Col>
+            </Row>
+            <Row xs="auto">
+              <Col><Badge bg="dark">Release: {movieData.release_date}</Badge></Col>
+            </Row>
             {movieData.overview}
             <Row xs="auto">
               {videos.length > 0 ?
-                <Button variant="danger" onClick={() => setModalShow(true)}><i style={{marginRight:'5px'}} className="fa-solid fa-clapperboard"></i>
+                <Button variant="danger" onClick={() => setModalShow(true)}><i style={{ marginRight: '5px' }} className="fa-solid fa-clapperboard"></i>
                   Watch trailer
                 </Button>
                 :
