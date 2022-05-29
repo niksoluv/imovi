@@ -113,7 +113,7 @@ const DefaultPage = (props) => {
 
 	return (
 		<Container fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
-			Trending
+			<div style={{color:'white'}}>Trending</div>
 			<Row xs="auto">
 				<ButtonGroup className="m-1">
 					{trendingPeriodRadios.map((radio, idx) => (
@@ -160,7 +160,7 @@ const DefaultPage = (props) => {
 				</ScrollMenu>
 			</Row>
 
-			Popular
+			<div style={{color:'white'}}>Popular</div>
 			<Row xs="auto">
 				<ButtonGroup className="m-1">
 					{popularRadios.map((radio, idx) => (
@@ -189,7 +189,7 @@ const DefaultPage = (props) => {
 				</ScrollMenu>
 			</Row>
 
-			Movies
+			<div style={{color:'white'}}>Movies</div>
 			<Row xs="auto">
 				<ButtonGroup className="m-1">
 					{movieRadios.map((radio, idx) => (

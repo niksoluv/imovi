@@ -140,3 +140,18 @@ export const defineMediatype = (media) => {
   else
     return 'movie'
 }
+
+export const getListsMovies = async (lists) => {
+
+  for (let i = 0; i < lists.length; ++i) {
+    if (lists[i].relatedMovies.length > 0) {
+      const reqArr = lists[i].relatedMovies.map(el => {
+        return axios.get(`${variables.DEFAULT_URL}${el.movie.mediaType}/${el.movie.movieId}?api_key=${variables.API_KEY}&language=en-US`)
+      })
+      const result = await axios.all(reqArr)
+      lists[i].relatedMovies.DATA = result
+    }
+  }
+
+  return lists
+}
