@@ -10,10 +10,22 @@ const captions = {
 
 const AddToCustomListButton = (props) => {
 
+  const userData = useSelector((state) => {
+    return state.userInfo.userData
+  })
+
   const [modalShow, setModalShow] = useState(false)
 
   const clickHandler = () => {
     setModalShow(true)
+  }
+
+  if (userData.id === undefined) {
+    return (
+      <>
+
+      </>
+    )
   }
 
   return (

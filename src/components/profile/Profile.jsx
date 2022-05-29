@@ -7,6 +7,7 @@ import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import { getListsMovies } from "../../storeAsyncActions/account";
 import MovieCard from "../movieCard/MovieCard";
 import { defineMediatype } from './../../storeAsyncActions/account';
+import { Navigate } from "react-router";
 
 const Profile = () => {
 
@@ -65,10 +66,16 @@ const Profile = () => {
     })
   }
 
+  if (userData) {
+		if (userData?.id===undefined) {
+			return <Navigate to='/' />
+		}
+	}
+
   return (
     <Container fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
       <Row>
-        <Col>
+        <Col xl={2} lg={2} md={2} sm={2}>
           <Avatar
             size={200}
             name={userData.username}
@@ -76,8 +83,8 @@ const Profile = () => {
             colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
           />
         </Col>
-        <Col>
-          {userData.username}
+        <Col xl={8} lg={8} md={8} sm={8}>
+        <div style={{ color: 'white' }}>{userData.username}</div>
         </Col>
       </Row>
       {lists}
