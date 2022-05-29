@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Col, Container, Row, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { addComment, getComments, likeComment, unlikeComment } from "../../../storeAsyncActions/comments";
+import { addComment, getComments, likeComment, replyComment, unlikeComment } from "../../../storeAsyncActions/comments";
 import styles from "./CommentsSection.module.css"
 import { mapComments } from './../../../storeAsyncActions/comments';
 import { useDispatch, useSelector } from "react-redux";
@@ -205,10 +205,23 @@ const CommentsSection = (props) => {
     return mappedComments
   }
 
+  const handleCommentReply = (commentId, commentData) => {
+    replyComment(commentId, commentData).then(res => {
+      getComments(props.state.id).then(res => {
+        const payload = {
+          comments: res.response
+        }
+        dispatch(getCommentsAction(payload))
+        setReplyModalShow(false)
+      })
+    })
+  }
+
   return (
     <div>
       <CommentsModal
         show={replyModalShow}
+        handleCommentReply={handleCommentReply}
         onHide={() => {
           setReplyModalShow(false)
           getComments(props.state.id).then(res => {
