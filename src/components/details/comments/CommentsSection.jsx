@@ -112,12 +112,12 @@ const CommentsSection = (props) => {
               <div className="d-flex flex-start ">
                 <Avatar
                   size={60}
-                  name={reply.user.username}
+                  name={reply?.user?.username}
                   variant="beam"
                   colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
                 />
                 <div>
-                  <h6 className="fw-bold mb-1">{reply.user.username}</h6>
+                  <h6 className="fw-bold mb-1">{reply?.user?.username}</h6>
                   <div className="d-flex align-items-center mb-3">
                     <p className="mb-0 m-1">
                       {replyDate.toDateString()}
