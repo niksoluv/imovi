@@ -17,19 +17,21 @@ const Profile = () => {
     return state.userInfo.userData
   })
 
+  const listMovies = useSelector((state) => {
+    return state.lists.listMovies
+  })
+
   useEffect(() => {
     getLists()
       .then(res => {
         getListsMovies(res)
           .then(res => {
-
             const mappedLists = mapLists(res)
             setLists(mappedLists)
-
           }
           )
       })
-  }, [userData])
+  }, [userData, listMovies])
 
   const mapLists = (lists) => {
     return lists.map(list => {
@@ -46,7 +48,7 @@ const Profile = () => {
       const arr = list.relatedMovies.DATA.map((el) => {
         el.data.media_type = defineMediatype(el)
         return (
-          <MovieCard movie={el.data} key={`${el.data.id}_popular`} />
+          <MovieCard movie={el.data} key={`${el.data.id}_popular`} mode="custom" list={list} />
         )
       })
       return (<>
@@ -66,11 +68,11 @@ const Profile = () => {
   }
 
   if (userData) {
-		if (userData?.id===undefined) {
-			return <Navigate to='/' />
-		}
-	}
-  
+    if (userData?.id === undefined) {
+      return <Navigate to='/' />
+    }
+  }
+
   let date = new Date(userData.date)
 
   return (
@@ -85,9 +87,9 @@ const Profile = () => {
           />
         </Col>
         <Col xl={8} lg={8} md={8} sm={8}>
-        <div style={{ color: 'white' }}>Username: {userData.username}</div>
-        <div style={{ color: 'white' }}>Email: {userData.email}</div>
-        <div style={{ color: 'white' }}>Registration Date: {date.getFullYear()}-{date.getMonth()}-{date.getDay()}</div>
+          <div style={{ color: 'white' }}>Username: {userData.username}</div>
+          <div style={{ color: 'white' }}>Email: {userData.email}</div>
+          <div style={{ color: 'white' }}>Registration Date: {date.getFullYear()}-{date.getMonth()}-{date.getDay()}</div>
         </Col>
       </Row>
       {lists}
