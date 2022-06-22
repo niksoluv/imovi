@@ -114,12 +114,22 @@ const Details = (props) => {
                 :
                 movieData?.episode_run_time ? movieData?.episode_run_time[0] : ''}m</Badge></Col>
             </Row>
-            <Row xs="auto">
-              <Col><Badge bg="dark">Budget: {movieData.budget} $</Badge></Col>
-            </Row>
-            <Row xs="auto">
-              <Col><Badge bg="dark">Release: {movieData.release_date}</Badge></Col>
-            </Row>
+            {mediaType === "movie" ?
+              <>
+                <Row xs="auto">
+                  <Col><Badge bg="dark">Budget: {movieData.budget} $</Badge></Col>
+                </Row>
+                <Row xs="auto">
+                  <Col><Badge bg="dark">Release: {movieData.release_date}</Badge></Col>
+                </Row>
+              </>
+              :
+              <>
+                <Row xs="auto">
+                  <Col><Badge bg="dark">Release: {movieData.first_air_date}</Badge></Col>
+                </Row>
+              </>}
+
             {movieData.overview}
             <Row xs="auto">
               {videos.length > 0 ?

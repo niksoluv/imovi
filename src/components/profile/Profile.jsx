@@ -45,7 +45,6 @@ const Profile = () => {
       }
       const arr = list.relatedMovies.DATA.map((el) => {
         el.data.media_type = defineMediatype(el)
-        debugger
         return (
           <MovieCard movie={el.data} key={`${el.data.id}_popular`} />
         )
@@ -71,6 +70,8 @@ const Profile = () => {
 			return <Navigate to='/' />
 		}
 	}
+  
+  let date = new Date(userData.date)
 
   return (
     <Container fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
@@ -84,7 +85,9 @@ const Profile = () => {
           />
         </Col>
         <Col xl={8} lg={8} md={8} sm={8}>
-        <div style={{ color: 'white' }}>{userData.username}</div>
+        <div style={{ color: 'white' }}>Username: {userData.username}</div>
+        <div style={{ color: 'white' }}>Email: {userData.email}</div>
+        <div style={{ color: 'white' }}>Registration Date: {date.getFullYear()}-{date.getMonth()}-{date.getDay()}</div>
         </Col>
       </Row>
       {lists}

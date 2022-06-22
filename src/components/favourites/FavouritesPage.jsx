@@ -12,17 +12,21 @@ const FavouritesPage = (props) => {
     return state.userInfo.userData
   })
 
+  const favMovies = useSelector((state) => {
+    return state.movies.favorites
+  })
+
   useEffect(() => {
     getFavourites().then(res => {
       const arr = res.map((el) => {
         el.data.media_type = defineMediatype(el.data)
         return (
-          <MovieCard movie={el.data} />
+          <MovieCard movie={el.data} mode="fav" />
         )
       })
       setMovies(arr)
     })
-  }, [userData])
+  }, [userData, favMovies])
 
   return (
     <Container className='d-flex p-2' fluid={true} xl={10} lg={10} md={10} sm={10} xs={10} >
