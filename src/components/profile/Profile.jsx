@@ -1,8 +1,8 @@
 import Avatar from "boring-avatars";
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { getLists } from './../../storeAsyncActions/customLists';
+import { deleteList, getLists } from './../../storeAsyncActions/customLists';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import { getListsMovies } from "../../storeAsyncActions/account";
 import MovieCard from "../movieCard/MovieCard";
@@ -33,6 +33,20 @@ const Profile = () => {
       })
   }, [userData, listMovies])
 
+  const deleteListHandler = (list) => {
+    deleteList(list).then(res => {
+      getLists()
+        .then(res => {
+          getListsMovies(res)
+            .then(res => {
+              const mappedLists = mapLists(res)
+              setLists(mappedLists)
+            }
+            )
+        })
+    })
+  }
+
   const mapLists = (lists) => {
     return lists.map(list => {
       if (list.relatedMovies.length < 1) {
@@ -52,7 +66,10 @@ const Profile = () => {
         )
       })
       return (<>
-        <div style={{ color: 'white' }}>{list.listName}</div>
+        <div style={{ color: 'white' }}>{list.listName} <Button className="btn-sm btn-danger mt-3"
+          onClick={() => deleteListHandler(list)}
+        >Delete this list <i class="fa-solid fa-trash-can"></i></Button></div>
+
         < Row xs="auto" bg="dark" >
           <ScrollMenu
             dragging={true}

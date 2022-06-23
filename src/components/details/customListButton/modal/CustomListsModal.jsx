@@ -71,7 +71,7 @@ const CustomListsModal = (props) => {
                       })
                     }}><i class="fa-solid fa-ban"></i></button>
                   :
-                  <button className="btn btn-danger"
+                  <button className="btn btn-success"
                     onClick={() => {
                       addToList(props.state, list.id).then(res => {
                         getLists().then(res => {
