@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Dropdown, Modal, Row, Table } from "react-bootstrap"
-import { replyComment } from "../../../storeAsyncActions/comments"
 
-const CommentsModal = (props) => {
+const CommentsEditModal = (props) => {
 
-  const [commentData, setCommentData] = useState("")
+  const [commentData, setCommentData] = useState(props.state.comment.data)
 
-  const commentId = props.state.id
+  useEffect(()=>{
+    setCommentData(props.state.comment.data)
+  },[props.state.comment])
 
+  const comment = props.state.comment
+  
   return (
     <Modal
       {...props}
@@ -15,7 +18,7 @@ const CommentsModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          <h5>Reply to {props.state.user?.username}</h5>
+          <h5>Edit your comment</h5>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body >
@@ -27,10 +30,7 @@ const CommentsModal = (props) => {
           placeholder="Type comment reply..."
           rows="1"></textarea>
         <div className="d-flex justify-content-end mt-3">
-          <button onClick={() => {
-            props.handleCommentReply(commentId, commentData)
-            setCommentData("")
-          }} type="button" className="btn btn-danger" style={{ marginLeft: '10px' }}>
+          <button onClick={() => { props.handleCommentEdit(comment, commentData) }} type="button" className="btn btn-danger" style={{ marginLeft: '10px' }}>
             Reply <i className="fas fa-long-arrow-alt-right ms-1"></i>
           </button>
         </div>
@@ -44,4 +44,4 @@ const CommentsModal = (props) => {
   )
 }
 
-export default CommentsModal
+export default CommentsEditModal

@@ -88,3 +88,22 @@ export const replyComment = async (commentId, commentData) => {
     return err
   }
 }
+
+export const editComment = async (comment, commentData) => {
+  let res
+  comment.data = commentData
+  try {
+    res = await axios.post(`${variables.API_URL}api/comments/edit`,
+      comment,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        }
+      })
+    return res.data
+  }
+  catch (err) {
+    console.log(err)
+    return err
+  }
+}

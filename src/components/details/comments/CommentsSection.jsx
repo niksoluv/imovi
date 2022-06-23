@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Card, Col, Container, Row, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { addComment, getComments, likeComment, replyComment, unlikeComment } from "../../../storeAsyncActions/comments";
+import { addComment, editComment, getComments, likeComment, replyComment, unlikeComment } from "../../../storeAsyncActions/comments";
 import styles from "./CommentsSection.module.css"
 import { mapComments } from './../../../storeAsyncActions/comments';
 import { useDispatch, useSelector } from "react-redux";
 import { getCommentsAction } from "../../../store/commentsReducer";
 import CommentsModal from "./CommentsModal";
 import Avatar from "boring-avatars";
+import CommentsReplyModal from "./CommentsEditModal";
+import CommentsEditModal from "./CommentsEditModal";
 
 const CommentsSection = (props) => {
 
@@ -16,7 +18,9 @@ const CommentsSection = (props) => {
   const [comments, setComments] = useState([])
 
   const [replyModalShow, setReplyModalShow] = useState(false)
+  const [editModalShow, setEditModalShow] = useState(false)
   const [currentComment, setCurrentComment] = useState({})
+  const [currentEditComment, setCurrentEditComment] = useState({})
 
   const dispatch = useDispatch()
   const storedComments = useSelector((state) => {
@@ -150,7 +154,10 @@ const CommentsSection = (props) => {
                   {date.toDateString()}
                 </p>
                 {comment.user.id === userId ?
-                  <div className={`btn-sm link-muted ${styles.button}`}><i className="fa fa-pencil-alt "></i></div>
+                  <div onClick={() => {
+                    setCurrentEditComment(comment)
+                    setEditModalShow(true)
+                  }} className={`btn-sm link-muted ${styles.button}`}><i className="fa fa-pencil-alt "></i></div>
                   :
                   <></>
                 }
@@ -217,6 +224,18 @@ const CommentsSection = (props) => {
     })
   }
 
+  const handleCommentEdit = (comment, commentData) => {
+    editComment(comment, commentData).then(res => {
+      getComments(props.state.id).then(res => {
+        const payload = {
+          comments: res.response
+        }
+        dispatch(getCommentsAction(payload))
+        setEditModalShow(false)
+      })
+    })
+  }
+
   return (
     <div>
       <CommentsModal
@@ -233,6 +252,21 @@ const CommentsSection = (props) => {
         }
         }
         state={currentComment}
+      />
+      <CommentsEditModal
+        show={editModalShow}
+        handleCommentEdit={handleCommentEdit}
+        onHide={() => {
+          setEditModalShow(false)
+          getComments(props.state.id).then(res => {
+            const payload = {
+              comments: res.response
+            }
+            dispatch(getCommentsAction(payload))
+          })
+        }
+        }
+        state={{ comment: currentEditComment }}
       />
       <section>
         <Container className="container text-dark">
