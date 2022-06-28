@@ -14,7 +14,7 @@ Imovi is an free app, that gives possibility to view movies catalogue and discus
 
 ## Installation
 
-Clone latest version of repository, locate to folder that contains "package.json" file and run commands in the next order:
+Clone latest version of repository (or download zip and unpack it), locate to folder that contains "package.json" file and run commands in the next order:
 
 ### `npm i`
 
